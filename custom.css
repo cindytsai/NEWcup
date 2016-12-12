@@ -1,0 +1,75 @@
+.sign-block {
+    width: 250px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    border: 5px solid #FFA042;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sign-block input {
+    width: 90%;
+    height: 40px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-family: 微軟正黑體;
+    padding: 0 20px 0 50px;
+    outline: none;
+}
+
+.sign-block input:active, .sign-block input:focus {
+    border: 1px solid #ff656c;
+}
+
+.content {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+.footer {
+	margin-top: 50px;
+	margin-bottom: 20px;
+}
+
+.center {
+	text-align: center;
+}
+
+.smaller_box {
+	width: 55px;
+}
+
+.smallest_box {
+	width: 35px;
+}
+
+.small_pic {
+	width: 30px;
+	height: 30px;
+}
+
+.tab_6 {
+	padding-left: 6em;
+}
+
+.tab_7 {
+	padding-left: 7em;
+}
+
+.tab_8 {
+	padding-left: 8em;
+}
+
+.tab_10 {
+	padding-left: 10em;
+}
+
+.tab_12 {
+	padding-left: 12em;
+}
