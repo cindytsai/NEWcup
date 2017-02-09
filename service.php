@@ -4,60 +4,64 @@ $db = mysql_connect('localhost', 'root', '');
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db('NEWcup', $db);
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['account']) && isset($_POST['password'])){
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['account'])) && isset(safe($_POST['password']))){
     login();
 }
 
 else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    if (isset($_GET['id'])){
+    if (isset(safe($_GET['id']))){
         search1();
     }
-    else if (isset($_GET['type']) && isset($_GET['num'])){
+    else if (isset(safe($_GET['type'])) && isset(safe($_GET['num']))){
         search2();
     }
 }
 
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new'])){
-    if ($_POST['new'] == "MS"){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['new']))){
+    if (safe($_POST['new']) == "MS"){
         sign_up_1('MS');
     }
-    else if ($_POST['new'] == "WS"){
+    else if (safe($_POST['new']) == "WS"){
         sign_up_1('WS');
     }
-    else if ($_POST['new'] == "MD"){
+    else if (safe($_POST['new']) == "MD"){
         sign_up_2('MD');
     }
-    else if ($_POST['new'] == "WD"){
+    else if (safe($_POST['new']) == "WD"){
         sign_up_2('WD');
     }
-    else if ($_POST['new'] == "XD"){
+    else if (safe($_POST['new']) == "XD"){
         sign_up_2('XD');
     }
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id'])){
-    $id = (string)$_POST['id'];
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['id']))){
+    $id = (string)safe($_POST['id']);
     $id = strtoupper($id);
     send_back(check_id($id));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['phone'])){
-    $phone = $_POST['phone'];
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['phone']))){
+    $phone = safe($_POST['phone']);
     send_back(check_phone($phone));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['birthy']) && isset($_POST['birthm']) && isset($_POST['birthd'])){
-    $birthy = (int)$_POST['birthy'];
-    $birthm = (int)$_POST['birthm'];
-    $birthd = (int)$_POST['birthd'];
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['birthy'])) && isset(safe($_POST['birthm'])) && isset(safe($_POST['birthd']))){
+    $birthy = (int)safe($_POST['birthy']);
+    $birthm = (int)safe($_POST['birthm']);
+    $birthd = (int)safe($_POST['birthd']);
     send_back(check_birth($birthy, $birthm, $birthd));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['identity'])){
-    $identity = (string)$_POST['identity'];
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['identity']))){
+    $identity = (string)safe($_POST['identity']);
     $identity = strtoupper($identity);
     send_back(check_identity($identity));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['identity_W'])){
-    $identity = (string)$_POST['identity_W'];
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['identity_W']))){
+    $identity = (string)safe($_POST['identity_W']);
     $identity = strtoupper($identity);
     send_back(check_identity_W($identity));
+}
+
+function safe($value) {
+    return htmlspecialchars(addslashes($value));
 }
 
 function transfer_grade($grade) {
@@ -90,7 +94,7 @@ function send_back($msg) {
 }
 
 function login() {
-    if ($_POST['account'] == 'NTUcup' && $_POST['password'] == '0986036999'){
+    if (safe($_POST['account']) == 'NTUcup' && safe($_POST['password']) == '0986036999'){
         session_start();
         $_SESSION['valid'] = 'Y';
         send_back('ok');
@@ -102,7 +106,7 @@ function login() {
 
 function search1() {
     $count = 1;
-    $id = strtoupper($_GET['id']);
+    $id = strtoupper(safe($_GET['id']));
     $queryMS = "SELECT * FROM MS WHERE ID='$id'";
     $queryresult_MS = mysql_fetch_array(mysql_query($queryMS));
     $queryWS = "SELECT * FROM WS WHERE ID='$id'";
@@ -204,8 +208,8 @@ function search1() {
 }
 
 function search2() {
-    $type = $_GET['type'];
-    $num = $_GET['num'];
+    $type = safe($_GET['type']);
+    $num = safe($_GET['num']);
     if ($type == 'A'){
         $queryMS = "SELECT * FROM MS WHERE NUM='$num'";
         $queryresult_MS = mysql_fetch_array(mysql_query($queryMS));
@@ -541,7 +545,7 @@ function check_grade($grade) {
 }
 
 function check_check() {
-    if (isset($_POST['check']) && $_POST['check'] == 'Y'){
+    if (isset(safe($_POST['check'])) && safe($_POST['check']) == 'Y'){
         return 'ok';
     }
     else {
@@ -550,14 +554,14 @@ function check_check() {
 }
 
 function sign_up_1($new) {
-    $ID = strtoupper($_POST['id']);
-    $NAME = $_POST['name'];
-    $MAJOR = $_POST['major'];
-    $GRADE = $_POST['grade'];
-    $PHONE = $_POST['phone'];
-    $BIRTHY = $_POST['birthy'];
-    $BIRTHM = $_POST['birthm'];
-    $BIRTHD = $_POST['birthd'];
+    $ID = strtoupper(safe($_POST['id']));
+    $NAME = safe($_POST['name']);
+    $MAJOR = safe($_POST['major']);
+    $GRADE = safe($_POST['grade']);
+    $PHONE = safe($_POST['phone']);
+    $BIRTHY = safe($_POST['birthy']);
+    $BIRTHM = safe($_POST['birthm']);
+    $BIRTHD = safe($_POST['birthd']);
     if (check_id($ID) != 'ok') {send_back(check_id($ID)); return;}
     if (check_name($NAME) != 'ok') {send_back(check_name($NAME)); return;}
     if (check_major($MAJOR) != 'ok') {send_back(check_major($MAJOR)); return;}
@@ -569,7 +573,7 @@ function sign_up_1($new) {
     date_default_timezone_set('Asia/Taipei');
     $SIGN_TIME = date("Y-m-d H:i:s");
     if ($new == 'MS'){
-        $IDENTITY = strtoupper($_POST['identity']);
+        $IDENTITY = strtoupper(safe($_POST['identity']));
         if (check_identity($IDENTITY) != 'ok') {send_back(check_identity($IDENTITY)); return;}
         $queryMS_NUM = "SELECT MS_NUM FROM setup";
         $queryresult_MS_NUM = mysql_query($queryMS_NUM);
@@ -587,7 +591,7 @@ function sign_up_1($new) {
         }
     }
     else if ($new == 'WS'){
-        $IDENTITY = $_POST['identity_W'];
+        $IDENTITY = safe($_POST['identity_W']);
         if (check_identity_W($IDENTITY) != 'ok') {send_back(check_identity_W($IDENTITY)); return;}
         $queryWS_NUM = "SELECT WS_NUM FROM setup";
         $queryresult_WS_NUM = mysql_query($queryWS_NUM);
@@ -607,22 +611,22 @@ function sign_up_1($new) {
 }
 
 function sign_up_2($new) {
-    $ID1 = strtoupper($_POST['id1']);
-    $ID2 = strtoupper($_POST['id2']);
-    $NAME1 = $_POST['name1'];
-    $NAME2 = $_POST['name2'];
-    $MAJOR1 = $_POST['major1'];
-    $MAJOR2 = $_POST['major2'];
-    $GRADE1 = $_POST['grade1'];
-    $GRADE2 = $_POST['grade2'];
-    $PHONE1 = $_POST['phone1'];
-    $PHONE2 = $_POST['phone2'];
-    $BIRTHY1 = $_POST['birthy1'];
-    $BIRTHY2 = $_POST['birthy2'];
-    $BIRTHM1 = $_POST['birthm1'];
-    $BIRTHM2 = $_POST['birthm2'];
-    $BIRTHD1 = $_POST['birthd1'];
-    $BIRTHD2 = $_POST['birthd2'];
+    $ID1 = strtoupper(safe($_POST['id1']));
+    $ID2 = strtoupper(safe($_POST['id2']));
+    $NAME1 = safe($_POST['name1']);
+    $NAME2 = safe($_POST['name2']);
+    $MAJOR1 = safe($_POST['major1']);
+    $MAJOR2 = safe($_POST['major2']);
+    $GRADE1 = safe($_POST['grade1']);
+    $GRADE2 = safe($_POST['grade2']);
+    $PHONE1 = safe($_POST['phone1']);
+    $PHONE2 = safe($_POST['phone2']);
+    $BIRTHY1 = safe($_POST['birthy1']);
+    $BIRTHY2 = safe($_POST['birthy2']);
+    $BIRTHM1 = safe($_POST['birthm1']);
+    $BIRTHM2 = safe($_POST['birthm2']);
+    $BIRTHD1 = safe($_POST['birthd1']);
+    $BIRTHD2 = safe($_POST['birthd2']);
     if (check_id($ID1) != 'ok') {send_back(check_id($ID1)); return;}
     if (check_id($ID2) != 'ok') {send_back(check_id($ID2)); return;}
     if (check_name($NAME1) != 'ok') {send_back(check_name($NAME1)); return;}
@@ -641,8 +645,8 @@ function sign_up_2($new) {
     date_default_timezone_set('Asia/Taipei');
     $SIGN_TIME = date("Y-m-d H:i:s");
     if ($new == 'MD'){
-        $IDENTITY1 = strtoupper($_POST['identity1']);
-        $IDENTITY2 = strtoupper($_POST['identity2']);
+        $IDENTITY1 = strtoupper(safe($_POST['identity1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity2']));
         if (check_identity($IDENTITY1) != 'ok') {send_back(check_identity($IDENTITY1)); return;}
         if (check_identity($IDENTITY2) != 'ok') {send_back(check_identity($IDENTITY2)); return;}
         $queryMD_NUM = "SELECT MD_NUM FROM setup";
@@ -663,8 +667,8 @@ function sign_up_2($new) {
         }
     }
     else if ($new == 'WD'){
-        $IDENTITY1 = strtoupper($_POST['identity_W1']);
-        $IDENTITY2 = strtoupper($_POST['identity_W2']);
+        $IDENTITY1 = strtoupper(safe($_POST['identity_W1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity_W2']));
         if (check_identity_W($IDENTITY1) != 'ok') {send_back(check_identity_W($IDENTITY1)); return;}
         if (check_identity_W($IDENTITY2) != 'ok') {send_back(check_identity_W($IDENTITY2)); return;}
         $queryWD_NUM = "SELECT WD_NUM FROM setup";
@@ -685,8 +689,8 @@ function sign_up_2($new) {
         }
     }
     else if ($new == 'XD'){
-        $IDENTITY1 = strtoupper($_POST['identity1']);
-        $IDENTITY2 = strtoupper($_POST['identity_W2']);
+        $IDENTITY1 = strtoupper(safe($_POST['identity1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity_W2']));
         if (check_identity($IDENTITY1) != 'ok') {send_back(check_identity($IDENTITY1)); return;}
         if (check_identity_W($IDENTITY2) != 'ok') {send_back(check_identity_W($IDENTITY2)); return;}
         $queryXD_NUM = "SELECT XD_NUM FROM setup";
