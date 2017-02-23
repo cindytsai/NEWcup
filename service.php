@@ -4,20 +4,20 @@ $db = mysql_connect('localhost', 'root', '');
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db('NEWcup', $db);
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['account'])) && isset(safe($_POST['password']))){
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['account']) && isset($_POST['password'])){
     login();
 }
 
 else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    if (isset(safe($_GET['id']))){
+    if (isset($_GET['id'])){
         search1();
     }
-    else if (isset(safe($_GET['type'])) && isset(safe($_GET['num']))){
+    else if (isset($_GET['type']) && isset($_GET['num'])){
         search2();
     }
 }
 
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['new']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new'])){
     if (safe($_POST['new']) == "MS"){
         sign_up_1('MS');
     }
@@ -34,27 +34,27 @@ else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['new']))){
         sign_up_2('XD');
     }
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['id']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id'])){
     $id = (string)safe($_POST['id']);
     $id = strtoupper($id);
     send_back(check_id($id));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['phone']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['phone'])){
     $phone = safe($_POST['phone']);
     send_back(check_phone($phone));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['birthy'])) && isset(safe($_POST['birthm'])) && isset(safe($_POST['birthd']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['birthy']) && isset($_POST['birthm']) && isset($_POST['birthd'])){
     $birthy = (int)safe($_POST['birthy']);
     $birthm = (int)safe($_POST['birthm']);
     $birthd = (int)safe($_POST['birthd']);
     send_back(check_birth($birthy, $birthm, $birthd));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['identity']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['identity'])){
     $identity = (string)safe($_POST['identity']);
     $identity = strtoupper($identity);
     send_back(check_identity($identity));
 }
-else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset(safe($_POST['identity_W']))){
+else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['identity_W'])){
     $identity = (string)safe($_POST['identity_W']);
     $identity = strtoupper($identity);
     send_back(check_identity_W($identity));
@@ -545,7 +545,7 @@ function check_grade($grade) {
 }
 
 function check_check() {
-    if (isset(safe($_POST['check'])) && safe($_POST['check']) == 'Y'){
+    if (isset($_POST['check']) && safe($_POST['check']) == 'Y'){
         return 'ok';
     }
     else {
