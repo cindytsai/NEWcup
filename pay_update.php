@@ -11,11 +11,11 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
 $db = mysql_connect('localhost', 'root', '');
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db('NEWcup', $db);
-$payMS = $_POST['MS'];
-$payWS = $_POST['WS'];
-$payMD = $_POST['MD'];
-$payWD = $_POST['WD'];
-$payXD = $_POST['XD'];
+$payMS = safe($_POST['MS']);
+$payWS = safe($_POST['WS']);
+$payMD = safe($_POST['MD']);
+$payWD = safe($_POST['WD']);
+$payXD = safe($_POST['XD']);
 
 $countMS = count($payMS);
 for($i = 0; $i < $countMS; $i++){
@@ -41,6 +41,10 @@ $countXD = count($payXD);
 for($i = 0; $i < $countXD; $i++){
 	$XD = $payXD[$i];
 	mysql_query("UPDATE XD SET PAYSTAT=1 WHERE NUM=$XD");
+}
+
+function safe($value) {
+	return htmlspecialchars(addslashes($value));
 }
 ?>
 
