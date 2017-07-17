@@ -11,11 +11,11 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
 $db = mysql_connect('localhost', 'root', '');
 mysql_query("SET NAMES 'utf8'");
 mysql_select_db('NEWcup', $db);
-$payMS = safe($_POST['MS']);
-$payWS = safe($_POST['WS']);
-$payMD = safe($_POST['MD']);
-$payWD = safe($_POST['WD']);
-$payXD = safe($_POST['XD']);
+$payMS = $_POST['MS'];
+$payWS = $_POST['WS'];
+$payMD = $_POST['MD'];
+$payWD = $_POST['WD'];
+$payXD = $_POST['XD'];
 
 $countMS = count($payMS);
 for($i = 0; $i < $countMS; $i++){
