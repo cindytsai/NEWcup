@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
     ?>
@@ -6,7 +6,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
         alert('您無權限觀看此頁面');
         location.replace("index.html");
     </script>
-    <?
+    <?php
 }
 $db = mysql_connect('localhost', 'root', '');
 mysql_query("SET NAMES 'utf8'");

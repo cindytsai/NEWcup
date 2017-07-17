@@ -11,7 +11,7 @@
 	<link href="custom.css" rel="stylesheet">
 </head>
 <body>
-	<?
+	<?php
 	session_start();
 	if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
 		?>
@@ -19,7 +19,7 @@
 			alert('您無權限觀看此頁面');
 			location.replace("index.html");
 		</script>
-		<?
+		<?php
 	}
 	?>
 	<div class="row">

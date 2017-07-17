@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 if (isset($_SESSION['valid']) && $_SESSION['valid'] = 'Y'){
 	unset($_SESSION['valid']);
@@ -6,7 +6,7 @@ if (isset($_SESSION['valid']) && $_SESSION['valid'] = 'Y'){
 	<script>
 		location.replace("index.html");
 	</script>
-	<?
+	<?php
 }
 else {
 	?>
@@ -14,6 +14,6 @@ else {
 		alert('您無權限觀看此頁面');
 		location.replace("index.html");
 	</script>
-	<?
+	<?php
 }
 ?>

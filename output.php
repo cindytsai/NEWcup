@@ -6,7 +6,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
         alert('您無權限觀看此頁面');
         location.replace("index.html");
     </script>
-    <?
+    <?php
 }
 function transfer_grade($grade) {
     if ($grade == 'A'){
@@ -69,7 +69,7 @@ header('Content-Disposition: attachment; filename=NEWcup.xls');  //設定檔案�
     <meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8">
 </head>
 <body>
-    <?
+    <?php
     echo '<table>';
     echo '<tr><th>男單</th></tr>';
     echo '<tr><th>姓名</th><th>系級</th><th>學號</th><th>聯絡電話</th><th>出生日期</th><th>身分證字號</th></tr>';

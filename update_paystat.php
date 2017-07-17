@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
     ?>
@@ -6,7 +6,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
         alert('您無權限觀看此頁面');
         location.replace("index.html");
     </script>
-    <?
+    <?php
 }
 function transfer_grade($grade) {
     if ($grade == 'A'){
@@ -81,7 +81,7 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                         <th>繳費</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryMS)){
                                         echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].transfer_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="MS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).' /></td></tr>';
                                     }
@@ -103,7 +103,7 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                         <th>繳費</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryWS)){
                                         $count += 1;
@@ -129,7 +129,7 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                         <th>繳費</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryMD)){
                                         $count += 1;
@@ -155,7 +155,7 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                         <th>繳費</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryWD)){
                                         $count += 1;
@@ -181,7 +181,7 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                         <th>繳費</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryXD)){
                                         $count += 1;
@@ -206,7 +206,7 @@ $numXD = mysql_num_rows($queryXD);
         <div class="container">
             <div class="row center">
                 <span><a href="https://www.facebook.com/ntubadminton2012/?fref=ts" target="_blank"><img src="facebook.png" class="small_pic" /></a></span>
-                <span class="small">&copy; 2016 NTU Badminton All Rights Reserved</span>
+                <span class="small">&copy; 2017 NTU Badminton All Rights Reserved</span>
             </div>
         </div>
     </section>

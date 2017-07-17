@@ -1,4 +1,4 @@
-<?
+<?php
 function transfer_grade($grade) {
     if ($grade == 'A'){
         return '大一';
@@ -55,7 +55,7 @@ $numXD = mysql_num_rows($queryXD);
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h4 class="panel-title">男單 組數：<? echo $numMS;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h4 class="panel-title">男單 組數：<?php echo $numMS;?></h4></a>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -65,15 +65,15 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>系級</th>
                                         <th>姓名</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryMS)){
                                         ?>
                                         <tr>
-                                            <td><? echo $result['NUM'];?></td>
-                                            <td><? echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
-                                            <td><? echo $result['NAME'];?></td>
+                                            <td><?php echo $result['NUM'];?></td>
+                                            <td><?php echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
+                                            <td><?php echo $result['NAME'];?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                     ?>
                                 </table>
@@ -82,7 +82,7 @@ $numXD = mysql_num_rows($queryXD);
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h4 class="panel-title">女單 組數：<? echo $numWS;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"><h4 class="panel-title">女單 組數：<?php echo $numWS;?></h4></a>
                         </div>
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -92,15 +92,15 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>系級</th>
                                         <th>姓名</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryWS)){
                                         ?>
                                         <tr>
-                                            <td><? echo $result['NUM'];?></td>
-                                            <td><? echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
-                                            <td><? echo $result['NAME'];?></td>
+                                            <td><?php echo $result['NUM'];?></td>
+                                            <td><?php echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
+                                            <td><?php echo $result['NAME'];?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                     ?>
                                 </table>
@@ -109,7 +109,7 @@ $numXD = mysql_num_rows($queryXD);
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><h4 class="panel-title">男雙 組數：<? echo $numMD;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"><h4 class="panel-title">男雙 組數：<?php echo $numMD;?></h4></a>
                         </div>
                         <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -121,17 +121,17 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>系級</th>
                                         <th>姓名</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryMD)){
                                         ?>
                                         <tr>
-                                            <td><? echo $result['NUM'];?></td>
-                                            <td><? echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
-                                            <td><? echo $result['NAME_1'];?></td>
-                                            <td><? echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
-                                            <td><? echo $result['NAME_2'];?></td>
+                                            <td><?php echo $result['NUM'];?></td>
+                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['NAME_1'];?></td>
+                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                     ?>
                                 </table>
@@ -140,7 +140,7 @@ $numXD = mysql_num_rows($queryXD);
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><h4 class="panel-title">女雙 組數：<? echo $numWD;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4"><h4 class="panel-title">女雙 組數：<?php echo $numWD;?></h4></a>
                         </div>
                         <div id="collapse4" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -152,17 +152,17 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>系級</th>
                                         <th>姓名</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryWD)){
                                         ?>
                                         <tr>
-                                            <td><? echo $result['NUM'];?></td>
-                                            <td><? echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
-                                            <td><? echo $result['NAME_1'];?></td>
-                                            <td><? echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
-                                            <td><? echo $result['NAME_2'];?></td>
+                                            <td><?php echo $result['NUM'];?></td>
+                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['NAME_1'];?></td>
+                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                     ?>
                                 </table>
@@ -171,7 +171,7 @@ $numXD = mysql_num_rows($queryXD);
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><h4 class="panel-title">混雙 組數：<? echo $numXD;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5"><h4 class="panel-title">混雙 組數：<?php echo $numXD;?></h4></a>
                         </div>
                         <div id="collapse5" class="panel-collapse collapse">
                             <div class="panel-body">
@@ -183,17 +183,17 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>系級</th>
                                         <th>姓名</th>
                                     </tr>
-                                    <?
+                                    <?php
                                     while ($result = mysql_fetch_array($queryXD)){
                                         ?>
                                         <tr>
-                                            <td><? echo $result['NUM'];?></td>
-                                            <td><? echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
-                                            <td><? echo $result['NAME_1'];?></td>
-                                            <td><? echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
-                                            <td><? echo $result['NAME_2'];?></td>
+                                            <td><?php echo $result['NUM'];?></td>
+                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['NAME_1'];?></td>
+                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                     ?>
                                 </table>
@@ -246,7 +246,7 @@ $numXD = mysql_num_rows($queryXD);
         <div class="container">
             <div class="row center">
                 <span><a href="https://www.facebook.com/ntubadminton2012/?fref=ts" target="_blank"><img src="facebook.png" class="small_pic" /></a></span>
-                <span class="small">&copy; 2016 NTU Badminton All Rights Reserved</span>
+                <span class="small">&copy; 2017 NTU Badminton All Rights Reserved</span>
             </div>
         </div>
     </section>
