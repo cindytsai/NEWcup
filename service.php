@@ -137,61 +137,121 @@ function search1() {
         $paystat_1 = transfer_paystat($queryresult_WS['PAYSTAT']);
         $count = 2;
     }
-    if ($queryresult_MD){
+    if ($queryresult_MD_1){
         if ($count == 1){
-            $num_1 = '男雙'.$queryresult_MD['NUM'];
-            $grade_1 = $queryresult_MD['MAJOR_1'].transfer_grade($queryresult_MD['GRADE_1']).'<br>'.
-                       $queryresult_MD['MAJOR_2'].transfer_grade($queryresult_MD['GRADE_2']);
-            $name_1 = $queryresult_MD['NAME_1'].'<br>'.$queryresult_MD['NAME_2'];
-            $paystat_1 = transfer_paystat($queryresult_MD['PAYSTAT']);
+            $num_1 = '男雙'.$queryresult_MD_1['NUM'];
+            $grade_1 = $queryresult_MD_1['MAJOR_1'].transfer_grade($queryresult_MD_1['GRADE_1']).'<br>'.
+                       $queryresult_MD_1['MAJOR_2'].transfer_grade($queryresult_MD_1['GRADE_2']);
+            $name_1 = $queryresult_MD_1['NAME_1'].'<br>'.$queryresult_MD_1['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_MD_1['PAYSTAT']);
             $count = 2;
         }
         else {
-            $num_2 = '男雙'.$queryresult_MD['NUM'];
-            $grade_2 = $queryresult_MD['MAJOR_1'].transfer_grade($queryresult_MD['GRADE_1']).'<br>'.
-                       $queryresult_MD['MAJOR_2'].transfer_grade($queryresult_MD['GRADE_2']);
-            $name_2 = $queryresult_MD['NAME_1'].'<br>'.$queryresult_MD['NAME_2'];
-            $paystat_2 = transfer_paystat($queryresult_MD['PAYSTAT']);
+            $num_2 = '男雙'.$queryresult_MD_1['NUM'];
+            $grade_2 = $queryresult_MD_1['MAJOR_1'].transfer_grade($queryresult_MD_1['GRADE_1']).'<br>'.
+                       $queryresult_MD_1['MAJOR_2'].transfer_grade($queryresult_MD_1['GRADE_2']);
+            $name_2 = $queryresult_MD_1['NAME_1'].'<br>'.$queryresult_MD_1['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_MD_1['PAYSTAT']);
             echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
                                    'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
             return;
         }
     }
-    if ($queryresult_WD){
+    if ($queryresult_MD_2){
         if ($count == 1){
-            $num_1 = '女雙'.$queryresult_WD['NUM'];
-            $grade_1 = $queryresult_WD['MAJOR_1'].transfer_grade($queryresult_WD['GRADE_1']).'<br>'.
-                       $queryresult_WD['MAJOR_2'].transfer_grade($queryresult_WD['GRADE_2']);
-            $name_1 = $queryresult_WD['NAME_1'].'<br>'.$queryresult_WD['NAME_2'];
-            $paystat_1 = transfer_paystat($queryresult_WD['PAYSTAT']);
+            $num_1 = '男雙'.$queryresult_MD_2['NUM'];
+            $grade_1 = $queryresult_MD_2['MAJOR_1'].transfer_grade($queryresult_MD_2['GRADE_1']).'<br>'.
+                       $queryresult_MD_2['MAJOR_2'].transfer_grade($queryresult_MD_2['GRADE_2']);
+            $name_1 = $queryresult_MD_2['NAME_1'].'<br>'.$queryresult_MD_2['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_MD_2['PAYSTAT']);
             $count = 2;
         }
         else {
-            $num_2 = '女雙'.$queryresult_WD['NUM'];
-            $grade_2 = $queryresult_WD['MAJOR_1'].transfer_grade($queryresult_WD['GRADE_1']).'<br>'.
-                       $queryresult_WD['MAJOR_2'].transfer_grade($queryresult_WD['GRADE_2']);
-            $name_2 = $queryresult_WD['NAME_1'].'<br>'.$queryresult_WD['NAME_2'];
-            $paystat_2 = transfer_paystat($queryresult_WD['PAYSTAT']);
+            $num_2 = '男雙'.$queryresult_MD_2['NUM'];
+            $grade_2 = $queryresult_MD_2['MAJOR_1'].transfer_grade($queryresult_MD_2['GRADE_1']).'<br>'.
+                       $queryresult_MD_2['MAJOR_2'].transfer_grade($queryresult_MD_2['GRADE_2']);
+            $name_2 = $queryresult_MD_2['NAME_1'].'<br>'.$queryresult_MD_2['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_MD_2['PAYSTAT']);
             echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
                                    'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
             return;
         }
     }
-    if ($queryresult_XD){
+    if ($queryresult_WD_1){
         if ($count == 1){
-            $num_1 = '混雙'.$queryresult_XD['NUM'];
-            $grade_1 = $queryresult_XD['MAJOR_1'].transfer_grade($queryresult_XD['GRADE_1']).'<br>'.
-                       $queryresult_XD['MAJOR_2'].transfer_grade($queryresult_XD['GRADE_2']);
-            $name_1 = $queryresult_XD['NAME_1'].'<br>'.$queryresult_XD['NAME_2'];
-            $paystat_1 = transfer_paystat($queryresult_XD['PAYSTAT']);
+            $num_1 = '女雙'.$queryresult_WD_1['NUM'];
+            $grade_1 = $queryresult_WD_1['MAJOR_1'].transfer_grade($queryresult_WD_1['GRADE_1']).'<br>'.
+                       $queryresult_WD_1['MAJOR_2'].transfer_grade($queryresult_WD_1['GRADE_2']);
+            $name_1 = $queryresult_WD_1['NAME_1'].'<br>'.$queryresult_WD_1['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_WD_1['PAYSTAT']);
             $count = 2;
         }
         else {
-            $num_2 = '混雙'.$queryresult_XD['NUM'];
-            $grade_2 = $queryresult_XD['MAJOR_1'].transfer_grade($queryresult_XD['GRADE_1']).'<br>'.
-                       $queryresult_XD['MAJOR_2'].transfer_grade($queryresult_XD['GRADE_2']);
-            $name_2 = $queryresult_XD['NAME_1'].'<br>'.$queryresult_XD['NAME_2'];
-            $paystat_2 = transfer_paystat($queryresult_XD['PAYSTAT']);
+            $num_2 = '女雙'.$queryresult_WD_1['NUM'];
+            $grade_2 = $queryresult_WD_1['MAJOR_1'].transfer_grade($queryresult_WD_1['GRADE_1']).'<br>'.
+                       $queryresult_WD_1['MAJOR_2'].transfer_grade($queryresult_WD_1['GRADE_2']);
+            $name_2 = $queryresult_WD_1['NAME_1'].'<br>'.$queryresult_WD_1['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_WD_1['PAYSTAT']);
+            echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
+                                   'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
+            return;
+        }
+    }
+    if ($queryresult_WD_2){
+        if ($count == 1){
+            $num_1 = '女雙'.$queryresult_WD_2['NUM'];
+            $grade_1 = $queryresult_WD_2['MAJOR_1'].transfer_grade($queryresult_WD_2['GRADE_1']).'<br>'.
+                       $queryresult_WD_2['MAJOR_2'].transfer_grade($queryresult_WD_2['GRADE_2']);
+            $name_1 = $queryresult_WD_2['NAME_1'].'<br>'.$queryresult_WD_2['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_WD_2['PAYSTAT']);
+            $count = 2;
+        }
+        else {
+            $num_2 = '女雙'.$queryresult_WD_2['NUM'];
+            $grade_2 = $queryresult_WD_2['MAJOR_1'].transfer_grade($queryresult_WD_2['GRADE_1']).'<br>'.
+                       $queryresult_WD_2['MAJOR_2'].transfer_grade($queryresult_WD_2['GRADE_2']);
+            $name_2 = $queryresult_WD_2['NAME_1'].'<br>'.$queryresult_WD_2['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_WD_2['PAYSTAT']);
+            echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
+                                   'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
+            return;
+        }
+    }
+    if ($queryresult_XD_1){
+        if ($count == 1){
+            $num_1 = '混雙'.$queryresult_XD_1['NUM'];
+            $grade_1 = $queryresult_XD_1['MAJOR_1'].transfer_grade($queryresult_XD_1['GRADE_1']).'<br>'.
+                       $queryresult_XD_1['MAJOR_2'].transfer_grade($queryresult_XD_1['GRADE_2']);
+            $name_1 = $queryresult_XD_1['NAME_1'].'<br>'.$queryresult_XD_1['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_XD_1['PAYSTAT']);
+            $count = 2;
+        }
+        else {
+            $num_2 = '混雙'.$queryresult_XD_1['NUM'];
+            $grade_2 = $queryresult_XD_1['MAJOR_1'].transfer_grade($queryresult_XD_1['GRADE_1']).'<br>'.
+                       $queryresult_XD_1['MAJOR_2'].transfer_grade($queryresult_XD_1['GRADE_2']);
+            $name_2 = $queryresult_XD_1['NAME_1'].'<br>'.$queryresult_XD_1['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_XD_1['PAYSTAT']);
+            echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
+                                   'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
+            return;
+        }
+    }
+    if ($queryresult_XD_2){
+        if ($count == 1){
+            $num_1 = '混雙'.$queryresult_XD_2['NUM'];
+            $grade_1 = $queryresult_XD_2['MAJOR_1'].transfer_grade($queryresult_XD_2['GRADE_1']).'<br>'.
+                       $queryresult_XD_2['MAJOR_2'].transfer_grade($queryresult_XD_2['GRADE_2']);
+            $name_1 = $queryresult_XD_2['NAME_1'].'<br>'.$queryresult_XD_2['NAME_2'];
+            $paystat_1 = transfer_paystat($queryresult_XD_2['PAYSTAT']);
+            $count = 2;
+        }
+        else {
+            $num_2 = '混雙'.$queryresult_XD_2['NUM'];
+            $grade_2 = $queryresult_XD_2['MAJOR_1'].transfer_grade($queryresult_XD_2['GRADE_1']).'<br>'.
+                       $queryresult_XD_2['MAJOR_2'].transfer_grade($queryresult_XD_2['GRADE_2']);
+            $name_2 = $queryresult_XD_2['NAME_1'].'<br>'.$queryresult_XD_2['NAME_2'];
+            $paystat_2 = transfer_paystat($queryresult_XD_2['PAYSTAT']);
             echo json_encode(array('num_1' => $num_1, 'grade_1' => $grade_1, 'name_1' => $name_1, 'paystat_1' => $paystat_1,
                                    'num_2' => $num_2, 'grade_2' => $grade_2, 'name_2' => $name_2, 'paystat_2' => $paystat_2));
             return;
