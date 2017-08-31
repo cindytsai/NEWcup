@@ -6,7 +6,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
 		alert('您無權限觀看此頁面');
 		location.replace("index.html");
 	</script>
-	<?
+	<?php
 }
 else {
 	$db = mysql_connect('localhost', 'root', '');
@@ -27,6 +27,6 @@ else {
 		alert('成功確認比賽名單');
 		location.replace("manager.php");
 	</script>
-	<?
+	<?php
 }
 ?>
