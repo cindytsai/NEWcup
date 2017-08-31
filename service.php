@@ -611,11 +611,11 @@ function check_identity_W($identity) {
                            'S'=>56,'T'=>65,'U'=>74,'V'=>83,'W'=>21,'X'=>3,
                            'Y'=>12,'Z'=>30);
         $multiply = array(8,7,6,5,4,3,2,1);
-        if (substr($identity, 1, 1) == 'A') {
-            $identity = substr($identity, 0, 1).'0'.substr($identity, 2);
+        if (substr($identity, 1, 1) == 'B') {
+            $identity = substr($identity, 0, 1).'1'.substr($identity, 2);
         }
         else {
-            $identity = substr($identity, 0, 1).'2'.substr($identity, 2);
+            $identity = substr($identity, 0, 1).'3'.substr($identity, 2);
         }
         for($i = 0; $i < $len; $i++){
             $stringArray[$i] = substr($identity, $i, 1);
