@@ -64,6 +64,24 @@
 				location.replace("check.php");
 			}
 		}
+		function enter_tournament() {
+			var request = new XMLHttpRequest();
+			request.open("POST", "tournament/index.php");
+			var data = "event=login&account=NTUcup&password=0986036999";
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send(data);
+			request.onreadystatechange = function() {
+				if (request.readyState === 4 && request.status === 200) {
+					var data = JSON.parse(request.responseText);
+					if (data.message == 'Success') {
+						location.assign("tournament/index.php");
+					}
+					else {
+						alert(data.message);
+					}
+				}
+			}
+		}
 	</script>
 </body>
 </html>
