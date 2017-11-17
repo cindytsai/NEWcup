@@ -206,7 +206,7 @@ $numXD = mysql_num_rows($queryXD);
         <div class="container">
             <div class="row center">
                 <span><a href="https://www.facebook.com/ntubadminton2012/?fref=ts" target="_blank"><img src="facebook.png" class="small_pic" /></a></span>
-                <span class="small">&copy; 2017 NTU Badminton All Rights Reserved</span>
+                <span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
             </div>
         </div>
     </section>

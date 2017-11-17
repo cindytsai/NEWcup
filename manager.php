@@ -46,6 +46,13 @@
 			<p>比賽結束之後在這裡清除報名資料，將會清除所有參賽者的報名資料並初始化資料庫。</p>
 		</div>
 	</div>
+	<br><br><br>
+	<div class="row">
+		<div class="col-sm-2 col-sm-offset-2">
+			<a onclick="enter_tournament()"><h4>進入賽程系統</h4></a><br>
+			<p>確認比賽名單之後進入這裡進行後續賽程規劃，將會產生賽程並輸出主審單。</p>
+		</div>
+	</div>
 	<script>
 		function check_clear() {
 			if (confirm("確定要清空報名資料?") == true){
