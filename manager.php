@@ -34,6 +34,10 @@
 			<p>開放繳費之後在這裡更新繳費狀態，更新完畢之後使用者可以直接查到最新的繳費狀態。</p>
 		</div>
 		<div class="col-sm-2">
+			<a href="update_playerdata.php"><h4>編輯選手資料</h4></a><br>
+			<p>若有選手想要取消報名，或是無法透過報名系統報名，可以從這裡進入編輯報名資料。</p>
+		</div>
+		<div class="col-sm-2">
 			<a onclick="check_check()"><h4>確認比賽名單</h4></a><br>
 			<p>繳費截止之後在這裡確認比賽名單，將會清除所有尚未繳費的參賽者報名資料。</p>
 		</div>
@@ -41,14 +45,14 @@
 			<a href="output.php"><h4>輸出比賽名單</h4></a><br>
 			<p>確認比賽名單之後在這裡輸出比賽名單，將會把所有參賽者的報名資料輸出成excel檔。</p>
 		</div>
-		<div class="col-sm-2">
-			<a onclick="check_clear()"><h4>清空報名資料</h4></a><br>
-			<p>比賽結束之後在這裡清除報名資料，將會清除所有參賽者的報名資料並初始化資料庫。</p>
-		</div>
 	</div>
 	<br><br><br>
 	<div class="row">
 		<div class="col-sm-2 col-sm-offset-2">
+			<a onclick="check_clear()"><h4>清空報名資料</h4></a><br>
+			<p>比賽結束之後在這裡清除報名資料，將會清除所有參賽者的報名資料並初始化資料庫。</p>
+		</div>
+		<div class="col-sm-2">
 			<a onclick="enter_tournament()"><h4>進入賽程系統</h4></a><br>
 			<p>確認比賽名單之後進入這裡進行後續賽程規劃，將會產生賽程並輸出主審單。</p>
 		</div>

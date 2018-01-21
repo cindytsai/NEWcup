@@ -9,11 +9,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['account']) && isset($_
 }
 
 else if ($_SERVER['REQUEST_METHOD'] == "GET"){
-    if (isset($_GET['id'])){
-        search1();
+    if (isset($_GET['mode']) && $_GET['mode'] == 'delete') {
+        delete($_GET['type'], $_GET['num']);
     }
-    else if (isset($_GET['type']) && isset($_GET['num'])){
-        search2();
+    else {
+        if (isset($_GET['id'])){
+            search1();
+        }
+        else if (isset($_GET['type']) && isset($_GET['num'])){
+            search2();
+        }
     }
 }
 
@@ -32,6 +37,21 @@ else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['new'])){
     }
     else if (safe($_POST['new']) == "XD"){
         sign_up_2('XD');
+    }
+    else if (safe($_POST['new']) == "directMS"){
+        sign_up_1_direct('MS');
+    }
+    else if (safe($_POST['new']) == "directWS"){
+        sign_up_1_direct('WS');
+    }
+    else if (safe($_POST['new']) == "directMD"){
+        sign_up_2_direct('MD');
+    }
+    else if (safe($_POST['new']) == "directWD"){
+        sign_up_2_direct('WD');
+    }
+    else if (safe($_POST['new']) == "directXD"){
+        sign_up_2_direct('XD');
     }
 }
 else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id'])){
@@ -712,7 +732,7 @@ function sign_up_1($new) {
         }
     }
     else if ($new == 'WS'){
-        $IDENTITY = safe($_POST['identity_W']);
+        $IDENTITY = strtoupper(safe($_POST['identity_W']));
         if (check_identity_W($IDENTITY) != 'ok') {send_back(check_identity_W($IDENTITY)); return;}
         $queryWS_NUM = "SELECT WS_NUM FROM setup";
         $queryresult_WS_NUM = mysql_query($queryWS_NUM);
@@ -831,6 +851,160 @@ function sign_up_2($new) {
             send_back('資料庫異常，請重試！');
         }
     }
+}
+
+function sign_up_1_direct($new) {
+    $ID = strtoupper(safe($_POST['id']));
+    $NAME = safe($_POST['name']);
+    $MAJOR = safe($_POST['major']);
+    $GRADE = safe($_POST['grade']);
+    $PHONE = safe($_POST['phone']);
+    $BIRTHY = safe($_POST['birthy']);
+    $BIRTHM = safe($_POST['birthm']);
+    $BIRTHD = safe($_POST['birthd']);
+    if (check_id($ID) != 'ok') {send_back(check_id($ID)); return;}
+    $BIRTH = $BIRTHY.'-'.$BIRTHM.'-'.$BIRTHD;
+    date_default_timezone_set('Asia/Taipei');
+    $SIGN_TIME = date("Y-m-d H:i:s");
+    if ($new == 'MS'){
+        $IDENTITY = strtoupper(safe($_POST['identity']));
+        $queryMS_NUM = "SELECT MS_NUM FROM setup";
+        $queryresult_MS_NUM = mysql_query($queryMS_NUM);
+        $fetchresult_MS_NUM = mysql_fetch_row($queryresult_MS_NUM);
+        $NUM = $fetchresult_MS_NUM[0];
+        $insert_MS = "INSERT INTO MS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT)
+                        VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
+        $update_MS_NUM = "UPDATE setup SET MS_NUM = $NUM+1";
+        if (mysql_query($insert_MS) && mysql_query($update_MS_NUM)){
+            echo json_encode(array('msg' => 'ok', 'num' => $NUM));
+            return;
+        }
+        else{
+            send_back('資料庫異常，請重試！');
+        }
+    }
+    else if ($new == 'WS'){
+        $IDENTITY = strtoupper(safe($_POST['identity_W']));
+        $queryWS_NUM = "SELECT WS_NUM FROM setup";
+        $queryresult_WS_NUM = mysql_query($queryWS_NUM);
+        $fetchresult_WS_NUM = mysql_fetch_row($queryresult_WS_NUM);
+        $NUM = $fetchresult_WS_NUM[0];
+        $insert_WS = "INSERT INTO WS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT)
+                        VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
+        $update_WS_NUM = "UPDATE setup SET WS_NUM = $NUM+1";
+        if (mysql_query($insert_WS) && mysql_query($update_WS_NUM)){
+            echo json_encode(array('msg' => 'ok', 'num' => $NUM));
+            return;
+        }
+        else{
+            send_back('資料庫異常，請重試！');
+        }
+    }
+}
+
+function sign_up_2_direct($new) {
+    $ID1 = strtoupper(safe($_POST['id1']));
+    $ID2 = strtoupper(safe($_POST['id2']));
+    $NAME1 = safe($_POST['name1']);
+    $NAME2 = safe($_POST['name2']);
+    $MAJOR1 = safe($_POST['major1']);
+    $MAJOR2 = safe($_POST['major2']);
+    $GRADE1 = safe($_POST['grade1']);
+    $GRADE2 = safe($_POST['grade2']);
+    $PHONE1 = safe($_POST['phone1']);
+    $PHONE2 = safe($_POST['phone2']);
+    $BIRTHY1 = safe($_POST['birthy1']);
+    $BIRTHY2 = safe($_POST['birthy2']);
+    $BIRTHM1 = safe($_POST['birthm1']);
+    $BIRTHM2 = safe($_POST['birthm2']);
+    $BIRTHD1 = safe($_POST['birthd1']);
+    $BIRTHD2 = safe($_POST['birthd2']);
+    if (check_id($ID1) != 'ok') {send_back(check_id($ID1)); return;}
+    if (check_id($ID2) != 'ok') {send_back(check_id($ID2)); return;}
+    $BIRTH1 = $BIRTHY1.'-'.$BIRTHM1.'-'.$BIRTHD1;
+    $BIRTH2 = $BIRTHY2.'-'.$BIRTHM2.'-'.$BIRTHD2;
+    date_default_timezone_set('Asia/Taipei');
+    $SIGN_TIME = date("Y-m-d H:i:s");
+    if ($new == 'MD'){
+        $IDENTITY1 = strtoupper(safe($_POST['identity1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity2']));
+        $queryMD_NUM = "SELECT MD_NUM FROM setup";
+        $queryresult_MD_NUM = mysql_query($queryMD_NUM);
+        $fetchresult_MD_NUM = mysql_fetch_row($queryresult_MD_NUM);
+        $NUM = $fetchresult_MD_NUM[0];
+        $insert_MD = "INSERT INTO MD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, 
+                        BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT)
+                        VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2',
+                        '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
+        $update_MD_NUM = "UPDATE setup SET MD_NUM = $NUM+1";
+        if (mysql_query($insert_MD) && mysql_query($update_MD_NUM)){
+            echo json_encode(array('msg' => 'ok', 'num' => $NUM));
+            return;
+        }
+        else{
+            send_back('資料庫異常，請重試！');
+        }
+    }
+    else if ($new == 'WD'){
+        $IDENTITY1 = strtoupper(safe($_POST['identity_W1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity_W2']));
+        $queryWD_NUM = "SELECT WD_NUM FROM setup";
+        $queryresult_WD_NUM = mysql_query($queryWD_NUM);
+        $fetchresult_WD_NUM = mysql_fetch_row($queryresult_WD_NUM);
+        $NUM = $fetchresult_WD_NUM[0];
+        $insert_WD = "INSERT INTO WD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, 
+                        BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT)
+                        VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2',
+                        '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
+        $update_WD_NUM = "UPDATE setup SET WD_NUM = $NUM+1";
+        if (mysql_query($insert_WD) && mysql_query($update_WD_NUM)){
+            echo json_encode(array('msg' => 'ok', 'num' => $NUM));
+            return;
+        }
+        else{
+            send_back('資料庫異常，請重試！');
+        }
+    }
+    else if ($new == 'XD'){
+        $IDENTITY1 = strtoupper(safe($_POST['identity1']));
+        $IDENTITY2 = strtoupper(safe($_POST['identity_W2']));
+        $queryXD_NUM = "SELECT XD_NUM FROM setup";
+        $queryresult_XD_NUM = mysql_query($queryXD_NUM);
+        $fetchresult_XD_NUM = mysql_fetch_row($queryresult_XD_NUM);
+        $NUM = $fetchresult_XD_NUM[0];
+        $insert_XD = "INSERT INTO XD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, 
+                        BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT)
+                        VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2',
+                        '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
+        $update_XD_NUM = "UPDATE setup SET XD_NUM = $NUM+1";
+        if (mysql_query($insert_XD) && mysql_query($update_XD_NUM)){
+            echo json_encode(array('msg' => 'ok', 'num' => $NUM));
+            return;
+        }
+        else{
+            send_back('資料庫異常，請重試！');
+        }
+    }
+}
+
+function delete($type, $num) {
+    $type = transfrom($type);
+    $sql = "DELETE FROM $type WHERE NUM='$num'";
+    if (mysql_query($sql)) {
+        send_back('ok');
+    }
+    else {
+        send_back('資料庫異常，請重試！');
+    }
+}
+
+function transfrom($type) {
+    if ($type == 'A') return 'MS';
+    elseif ($type == 'B') return 'WS';
+    elseif ($type == 'C') return 'MD';
+    elseif ($type == 'D') return 'WD';
+    elseif ($type == 'E') return 'XD';
+    elseif ($type == 'F') return 'G';
 }
 
 function fulltohalf($str) {
