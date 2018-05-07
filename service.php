@@ -81,7 +81,7 @@ else if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['identity_W'])){
 }
 
 function safe($value) {
-    return htmlspecialchars(addslashes($value));
+    return htmlspecialchars(addslashes(trim($value)));
 }
 
 function transfer_grade($grade) {
@@ -376,8 +376,8 @@ function search2() {
 }
 
 function check_id($id) {
-    $id = fulltohalf($id);
-    if (strlen($id) != 9 || !preg_match('/^[A-Z][0-9]{2}.[0-9]{5}$/', $id)){
+    $id = strtoupper(fulltohalf($id));
+    if (!preg_match('/^[A-Z][0-9]{2}.[0-9]{5}$/', $id)){
         return '請輸入正確的學號！';
     }
     else {
@@ -541,7 +541,7 @@ function check_birth($birthy, $birthm, $birthd) {
 function check_identity($identity) {
     $identity = fulltohalf($identity);
     $len = strlen($identity);
-    if (preg_match('/^[A-Z][1-2][0-9]+$/', $identity) && $len == 10){
+    if (preg_match('/^[A-Z][1][0-9]+$/', $identity) && $len == 10){
         $headPoint = array('A'=>1,'I'=>39,'O'=>48,'B'=>10,'C'=>19,'D'=>28,
                            'E'=>37,'F'=>46,'G'=>55,'H'=>64,'J'=>73,'K'=>82,
                            'L'=>2,'M'=>11,'N'=>20,'P'=>29,'Q'=>38,'R'=>47,
@@ -617,7 +617,7 @@ function check_identity_W($identity) {
         for($j = 0; $j < $len; $j++){
             $total += $stringArray[$j] * $multiply[$j];
         }
-        if ((($total % 10 == 0 ) ? 0 : 10 - $total % 10) != $point){
+        if ((($total % 10 == 0) ? 0 : 10 - $total % 10) != $point){
             return '請輸入正確的身分證字號！';
         }
         else {
@@ -646,7 +646,7 @@ function check_identity_W($identity) {
         for ($j = 0; $j < $len; $j++) {
             $total += $stringArray[$j] * $multiply[$j];
         }
-        if ((($total % 10 == 0 ) ? 0 : 10 - $total % 10) != $point){
+        if ((($total % 10 == 0) ? 0 : 10 - $total % 10) != $point){
             return '請輸入正確的居留證字號！';
         }
         else {
