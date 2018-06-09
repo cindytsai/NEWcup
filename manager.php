@@ -56,16 +56,30 @@
 			<a onclick="enter_tournament()"><h4>進入賽程系統</h4></a><br>
 			<p>確認比賽名單之後進入這裡進行後續賽程規劃，將會產生賽程並輸出主審單。</p>
 		</div>
+		<div class="col-sm-2">
+			<a onclick="close_signup()"><h4>關閉報名功能</h4></a><br>
+			<a onclick="open_signup()"><h4>開啟報名功能</h4></a><br>
+		</div>
 	</div>
 	<script>
 		function check_clear() {
 			if (confirm("確定要清空報名資料?") == true){
-				location.replace("clear.php");
+				location.replace("operation.php?event=clear");
 			}
 		}
 		function check_check() {
 			if (confirm("確定要確認比賽名單?") == true){
-				location.replace("check.php");
+				location.replace("operation.php?event=check");
+			}
+		}
+		function close_signup() {
+			if (confirm("確定要關閉報名功能?") == true){
+				location.replace("operation.php?event=close_signup");
+			}
+		}
+		function open_signup() {
+			if (confirm("確定要開啟報名功能?") == true){
+				location.replace("operation.php?event=open_signup");
 			}
 		}
 		function enter_tournament() {

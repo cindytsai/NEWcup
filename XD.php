@@ -1,3 +1,25 @@
+<?php
+$db = mysql_connect('localhost', 'root', '');
+mysql_query("SET NAMES 'utf8'");
+mysql_select_db('NEWcup', $db);
+
+function querySignup() {
+	$sql = mysql_query("SELECT SIGNUP FROM setup");
+	$fetch = mysql_fetch_row($sql);
+	$return = ($fetch[0] == 1) ? 1 : 0;
+	return $return;
+}
+
+$acceptSignup = querySignup();
+if (!$acceptSignup){
+    ?>
+    <script>
+        alert('已不開放報名');
+        location.replace("index.html");
+    </script>
+    <?php
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +36,7 @@
 <body>
 	<header>
 		<div class="container">
-			<h1 class="center">2018新生盃羽球賽報名表-女雙</h1>
+			<h1 class="center">2018新生盃羽球賽報名表-混雙</h1>
 		</div>
 	</header>
 
@@ -22,12 +44,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-2">
-					<p>項目：<input type="text" value="女雙" readonly /></p>
+					<p>項目：<input type="text" value="混雙" readonly /></p>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-2">
-					<p>學號：<input type="text" id="id1" onchange="check_id1()" /></p>
+					<p>學號(男)：<input type="text" id="id1" onchange="check_id1()" /></p>
 					<p class="text-danger" id="id1_result"></p>
 					<p>姓名：<input type="text" id="name1" /></p>
 					<p>系別：<input type="text" id="major1" /></p>
@@ -48,7 +70,7 @@
 					<p class="text-danger" id="identity1_result"></p>
 				</div>
 				<div class="col-sm-4">
-					<p>學號：<input type="text" id="id2" onchange="check_id2()" /></p>
+					<p>學號(女)：<input type="text" id="id2" onchange="check_id2()" /></p>
 					<p class="text-danger" id="id2_result"></p>
 					<p>姓名：<input type="text" id="name2" /></p>
 					<p>系別：<input type="text" id="major2" /></p>
@@ -91,7 +113,7 @@
 		function check_id1() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "type=WD&id=" + document.getElementById("id1").value;
+			var data = "type=XD&id=" + document.getElementById("id1").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
@@ -153,7 +175,7 @@
 		function check_identity1() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "identity_W=" + document.getElementById("identity1").value;
+			var data = "identity=" + document.getElementById("identity1").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
@@ -173,7 +195,7 @@
 		function check_id2() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "type=WD&id=" + document.getElementById("id2").value;
+			var data = "type=XD&id=" + document.getElementById("id2").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
@@ -255,7 +277,7 @@
 		function sign_up() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "new=WD&type=WD" + 
+			var data = "new=XD&type=XD" + 
 					   "&id1=" + document.getElementById("id1").value +
 					   "&id2=" + document.getElementById("id2").value +
 					   "&name1=" + document.getElementById("name1").value +
@@ -272,7 +294,7 @@
 					   "&birthm2=" + document.getElementById("birthm2").value +
 					   "&birthd1=" + document.getElementById("birthd1").value +
 					   "&birthd2=" + document.getElementById("birthd2").value +
-					   "&identity_W1=" + document.getElementById("identity1").value +
+					   "&identity1=" + document.getElementById("identity1").value +
 					   "&identity_W2=" + document.getElementById("identity2").value;
 			var check = document.getElementById("check");
 			if (check.checked){

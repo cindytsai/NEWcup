@@ -1,3 +1,25 @@
+<?php
+$db = mysql_connect('localhost', 'root', '');
+mysql_query("SET NAMES 'utf8'");
+mysql_select_db('NEWcup', $db);
+
+function querySignup() {
+	$sql = mysql_query("SELECT SIGNUP FROM setup");
+	$fetch = mysql_fetch_row($sql);
+	$return = ($fetch[0] == 1) ? 1 : 0;
+	return $return;
+}
+
+$acceptSignup = querySignup();
+if (!$acceptSignup){
+    ?>
+    <script>
+        alert('已不開放報名');
+        location.replace("index.html");
+    </script>
+    <?php
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

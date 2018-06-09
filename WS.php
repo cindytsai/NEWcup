@@ -1,3 +1,25 @@
+<?php
+$db = mysql_connect('localhost', 'root', '');
+mysql_query("SET NAMES 'utf8'");
+mysql_select_db('NEWcup', $db);
+
+function querySignup() {
+	$sql = mysql_query("SELECT SIGNUP FROM setup");
+	$fetch = mysql_fetch_row($sql);
+	$return = ($fetch[0] == 1) ? 1 : 0;
+	return $return;
+}
+
+$acceptSignup = querySignup();
+if (!$acceptSignup){
+    ?>
+    <script>
+        alert('已不開放報名');
+        location.replace("index.html");
+    </script>
+    <?php
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +36,7 @@
 <body>
 	<header>
 		<div class="container">
-			<h1 class="center">2018新生盃羽球賽報名表-男單</h1>
+			<h1 class="center">2018新生盃羽球賽報名表-女單</h1>
 		</div>
 	</header>
 
@@ -22,7 +44,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
-					<p>項目：<input type="text" value="男單" readonly /></p>
+					<p>項目：<input type="text" value="女單" readonly /></p>
 					<p>學號：<input type="text" id="id" onchange="check_id()" /></p>
 					<p class="text-danger" id="id_result"></p>
 					<p>姓名：<input type="text" id="name" /></p>
@@ -40,7 +62,7 @@
 						<input class="smallest_box" type="text" id="birthm" /> 月
 						<input class="smallest_box" type="text" id="birthd" onchange="check_birth()" /> 日</p>
 					<p class="text-danger" id="birth_result"></p>
-					<p>身分證字號：<input type="text" id="identity" onchange="check_identity()" /></p>
+					<p>身分證字號：<input type="text" id="identity" onfocus="check_birth()" onchange="check_identity()" /></p>
 					<p class="text-danger" id="identity_result"></p>
 					<p><input type="checkbox" id="check" value="Y" /> 報名確認</p>
 					<button onclick="sign_up()">確定報名</button>
@@ -62,7 +84,7 @@
 		function check_id() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "type=MS&id=" + document.getElementById("id").value;
+			var data = "type=WS&id=" + document.getElementById("id").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
@@ -109,7 +131,7 @@
 			request.send(data);
 
 			request.onreadystatechange = function() {
-				if (request.readyState === 4 && request.status === 200) {              
+				if (request.readyState === 4 && request.status === 200) {
 					var data = JSON.parse(request.responseText);
 					if (data.msg != 'ok') {
 						document.getElementById("birth_result").innerHTML = data.msg;
@@ -124,12 +146,12 @@
 		function check_identity() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "identity=" + document.getElementById("identity").value;
+			var data = "identity_W=" + document.getElementById("identity").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
 			request.onreadystatechange = function() {
-				if (request.readyState === 4 && request.status === 200) {              
+				if (request.readyState === 4 && request.status === 200) {
 					var data = JSON.parse(request.responseText);
 					if (data.msg != 'ok') {
 						document.getElementById("identity_result").innerHTML = data.msg;
@@ -144,7 +166,7 @@
 		function sign_up() {
 			var request = new XMLHttpRequest();
 			request.open("POST", "service.php");
-			var data = "new=MS&type=MS" + 
+			var data = "new=WS&type=WS" + 
 					   "&id=" + document.getElementById("id").value +
 					   "&name=" + document.getElementById("name").value +
 					   "&major=" + document.getElementById("major").value +
@@ -153,7 +175,7 @@
 					   "&birthy=" + document.getElementById("birthy").value +
 					   "&birthm=" + document.getElementById("birthm").value +
 					   "&birthd=" + document.getElementById("birthd").value +
-					   "&identity=" + document.getElementById("identity").value;
+					   "&identity_W=" + document.getElementById("identity").value;
 			var check = document.getElementById("check");
 			if (check.checked){
 				data = data + "&check=" + check.value;
@@ -162,7 +184,7 @@
 			request.send(data);
 
 			request.onreadystatechange = function() {
-				if (request.readyState === 4 && request.status === 200){  
+				if (request.readyState === 4 && request.status === 200){
 					var data = JSON.parse(request.responseText);
 					if (data.msg == 'ok'){
 						alert('報名成功，您的編號為 ' + data.num + '。請於指定時間內繳費');
