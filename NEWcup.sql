@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主機: localhost
--- 產生時間： 2016 年 11 月 10 日 17:53
+-- 產生時間： 2018 年 08 月 13 日 12:31
 -- 伺服器版本: 10.1.13-MariaDB
 -- PHP 版本： 5.6.21
 
@@ -76,15 +76,16 @@ CREATE TABLE `setup` (
   `WS_NUM` smallint(6) NOT NULL,
   `MD_NUM` smallint(6) NOT NULL,
   `WD_NUM` smallint(6) NOT NULL,
-  `XD_NUM` smallint(6) NOT NULL
+  `XD_NUM` smallint(6) NOT NULL,
+  `SIGNUP` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設定檔';
 
 --
 -- 資料表的匯出資料 `setup`
 --
 
-INSERT INTO `setup` (`MS_NUM`, `WS_NUM`, `MD_NUM`, `WD_NUM`, `XD_NUM`) VALUES
-(1, 1, 1, 1, 1);
+INSERT INTO `setup` (`MS_NUM`, `WS_NUM`, `MD_NUM`, `WD_NUM`, `XD_NUM`, `SIGNUP`) VALUES
+(1, 1, 1, 1, 1, 0);
 
 -- --------------------------------------------------------
 
