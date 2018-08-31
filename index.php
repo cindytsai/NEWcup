@@ -17,39 +17,88 @@ function checkManager() {
 
 if (isset($_GET['signup'])) {
 	if (querySignup()) {
-		if ($_GET['signup'] == "MS") include_once("view/MS.html");
-		elseif ($_GET['signup'] == "WS") include_once("view/WS.html");
-		elseif ($_GET['signup'] == "MD") include_once("view/MD.html");
-		elseif ($_GET['signup'] == "WD") include_once("view/WD.html");
-		elseif ($_GET['signup'] == "XD") include_once("view/XD.html");
-		else include_once("view/index.html");
+		if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
+			include_once("view/header.html");
+			include_once("view/".$_GET['signup'].".html");
+			include_once("view/footer.html");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
 	}
 	else {
 		// alert 已不開放報名
+		include_once("view/header.html");
+		include_once("view/index.html");
+		include_once("view/footer.html");
 	}
 }
 elseif (isset($_GET['route'])) {
-	if ($_GET['route'] == "login") include_once("view/login.html");
-	elseif ($_GET['route'] == "document") include_once("view/document.html");
-	elseif ($_GET['route'] == "manager" && checkManager()) include_once("view/manager.html");
-	elseif ($_GET['route'] == "update_paystat" && checkManager()) include_once("view/update_paystat.html");
-	elseif ($_GET['route'] == "update_playerdata" && checkManager()) include_once("view/update_playerdata.html");
-	else include_once("view/index.html");
+	if (in_array($_GET['route'], array("login", "document")) {
+		include_once("view/header.html");
+		include_once("view/".$_GET['route'].".html");
+		include_once("view/footer.html");
+	}
+	elseif ($_GET['route'] == "list") {
+		include_once("view/header.html");
+		include_once("list.php");
+		include_once("view/footer.html");
+	}
+	elseif ($_GET['route'] == "output") {
+		if (checkManager()) {
+			include_once("output.php");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
+	}
+	elseif (in_array($_GET['route'], array("manager", "update_playerdata")) {
+		if (checkManager()) {
+			include_once("view/header.html");
+			include_once("view/".$_GET['route'].".html");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
+	}
+	elseif ($_GET['route'] == "update_paystat" && checkManager()) {
+		include_once("view/header.html");
+		include_once("update_paystat.php");
+		include_once("view/footer.html");
+	}
+	else {
+		include_once("view/header.html");
+		include_once("view/index.html");
+		include_once("view/footer.html");
+	}
 }
 elseif (isset($_POST['service'])) {
 	if ($_POST['service'] == "login") {
-		// perform login
 		if ($_POST['account'] == "NTUcup" && $_POST['password'] == "0986036999") {
-			setcookie("account", "NTUcup");
-			return array("msg" => "ok");
+			if (setcookie("account", "NTUcup")) {
+				return json_encode(array("msg" => "ok"));
+			}
+			else {
+				return json_encode(array("msg" => "Unable to perform login"));
+			}
 		}
 		else {
-			return array("msg" => "Wrong account or password");
+			return json_encode(array("msg" => "Wrong account or password"));
 		}
 	}
 	elseif ($_POST['service'] == "logout") {
-		// perform logout
-		setcookie("account", "", time()-3600);
+		if (setcookie("account", "", time()-3600)) {
+			return json_encode(array("msg" => "ok"));
+		}
+		else {
+			return json_encode(array("msg" => "Unable to perform logout"));
+		}
 	}
 	elseif ($_POST['service'] == "signup") {
 		if (in_array($_POST['type'], array('MS', 'WS', 'MD', 'WD', 'XD'))) return curl_post($_POST);
@@ -58,74 +107,93 @@ elseif (isset($_POST['service'])) {
 			else return // not manager
 		}
 	}
-	elseif ($_POST['service'] == "clearList") {
-		if (checkManager()) return curl_post($_POST);
-		else return // not manager
-	}
-	elseif ($_POST['service'] == "checkList") {
-		if (checkManager()) return curl_post($_POST);
-		else return // not manager
-	}
-	elseif ($_POST['service'] == "closeSignup") {
-		if (checkManager()) return curl_post($_POST);
-		else return // not manager
-	}
-	elseif ($_POST['service'] == "openSignup") {
-		if (checkManager()) return curl_post($_POST);
-		else return // not manager
-	}
 }
-elseif (isset($_GET['service']) && checkManager()) {
+elseif (isset($_GET['service'])) {
 	if ($_GET['service'] == "clearList") {
-		$deleteMS = "DELETE FROM MS WHERE 1";
-		mysqli_query($mysql, $deleteMS);
-		$deleteWS = "DELETE FROM WS WHERE 1";
-		mysqli_query($mysql, $deleteWS);
-		$deleteMD = "DELETE FROM MD WHERE 1";
-		mysqli_query($mysql, $deleteMD);
-		$deleteWD = "DELETE FROM WD WHERE 1";
-		mysqli_query($mysql, $deleteWD);
-		$deleteXD = "DELETE FROM XD WHERE 1";
-		mysqli_query($mysql, $deleteXD);
-		$init = "UPDATE setup SET MS_NUM=1, WS_NUM=1, MD_NUM=1, WD_NUM=1, XD_NUM=1";
-		mysqli_query($mysql, $init);
-		// alert success
+		if (checkManager()) {
+			$deleteMS = "DELETE FROM MS WHERE 1";
+			mysqli_query($mysql, $deleteMS);
+			$deleteWS = "DELETE FROM WS WHERE 1";
+			mysqli_query($mysql, $deleteWS);
+			$deleteMD = "DELETE FROM MD WHERE 1";
+			mysqli_query($mysql, $deleteMD);
+			$deleteWD = "DELETE FROM WD WHERE 1";
+			mysqli_query($mysql, $deleteWD);
+			$deleteXD = "DELETE FROM XD WHERE 1";
+			mysqli_query($mysql, $deleteXD);
+			$init = "UPDATE setup SET MS_NUM=1, WS_NUM=1, MD_NUM=1, WD_NUM=1, XD_NUM=1";
+			mysqli_query($mysql, $init);
+			// alert success
+			include_once("view/header.html");
+			include_once("view/manager.html");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
 	}
 	elseif ($_GET['service'] == "checkList") {
-		$deleteMS = "DELETE FROM MS WHERE PAYSTAT=0";
-		mysqli_query($mysql, $deleteMS);
-		$deleteWS = "DELETE FROM WS WHERE PAYSTAT=0";
-		mysqli_query($mysql, $deleteWS);
-		$deleteMD = "DELETE FROM MD WHERE PAYSTAT=0";
-		mysqli_query($mysql, $deleteMD);
-		$deleteWD = "DELETE FROM WD WHERE PAYSTAT=0";
-		mysqli_query($mysql, $deleteWD);
-		$deleteXD = "DELETE FROM XD WHERE PAYSTAT=0";
-		mysqli_query($mysql, $deleteXD);
-		// alert success
+		if (checkManager()) {
+			$deleteMS = "DELETE FROM MS WHERE PAYSTAT=0";
+			mysqli_query($mysql, $deleteMS);
+			$deleteWS = "DELETE FROM WS WHERE PAYSTAT=0";
+			mysqli_query($mysql, $deleteWS);
+			$deleteMD = "DELETE FROM MD WHERE PAYSTAT=0";
+			mysqli_query($mysql, $deleteMD);
+			$deleteWD = "DELETE FROM WD WHERE PAYSTAT=0";
+			mysqli_query($mysql, $deleteWD);
+			$deleteXD = "DELETE FROM XD WHERE PAYSTAT=0";
+			mysqli_query($mysql, $deleteXD);
+			// alert success
+			include_once("view/header.html");
+			include_once("view/manager.html");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
 	}
 	elseif ($_GET['service'] == "closeSignup") {
-		$sql = "UPDATE setup SET SIGNUP=0";
-		if (mysqli_query($mysql, $sql)) {
-			// alert success
-		} else {
-			// alert fail message
+		if (checkManager()) {
+			$sql = "UPDATE setup SET SIGNUP=0";
+			if (mysqli_query($mysql, $sql)) {
+				// alert success
+			} else {
+				// alert fail
+			}
+			include_once("view/header.html");
+			include_once("view/manager.html");
+		}
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
 		}
 	}
 	elseif ($_GET['service'] == "openSignup") {
-		$sql = "UPDATE setup SET SIGNUP=1";
-		if (mysqli_query($mysql, $sql)) {
-			// alert success
-		} else {
-			// alert fail message
+		if (checkManager()) {
+			$sql = "UPDATE setup SET SIGNUP=1";
+			if (mysqli_query($mysql, $sql)) {
+				// alert success
+			} else {
+				// alert fail
+			}
+			include_once("view/header.html");
+			include_once("view/manager.html");
 		}
-	}
-	else {
-		include_once("view/index.html");
+		else {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
 	}
 }
 else {
+	include_once("view/header.html");
 	include_once("view/index.html");
+	include_once("view/footer.html");
 }
 
 function curl_post($post) {
