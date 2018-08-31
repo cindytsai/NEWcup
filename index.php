@@ -16,8 +16,21 @@ function checkManager() {
 }
 
 if (isset($_GET['signup'])) {
-	if (querySignup()) {
-		if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
+	if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
+		if (querySignup()) {
+			include_once("view/header.html");
+			include_once("view/".$_GET['signup'].".html");
+			include_once("view/footer.html");
+		}
+		else {
+			// alert 已不開放報名
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
+	}
+	elseif (in_array($_GET['signup'], array("directMS", "directWS", "directMD", "directWD", "directXD"))) {
+		if (checkManager()) {
 			include_once("view/header.html");
 			include_once("view/".$_GET['signup'].".html");
 			include_once("view/footer.html");
@@ -29,7 +42,6 @@ if (isset($_GET['signup'])) {
 		}
 	}
 	else {
-		// alert 已不開放報名
 		include_once("view/header.html");
 		include_once("view/index.html");
 		include_once("view/footer.html");
