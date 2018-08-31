@@ -119,6 +119,9 @@ elseif (isset($_POST['service'])) {
 			else return // not manager
 		}
 	}
+	elseif (in_array($_POST['service'], array("checkId", "checkBirth", "checkPhone", "checkIdentityM", "checkIdentityF"))) {
+		return curl_post($_POST);
+	}
 }
 elseif (isset($_GET['service'])) {
 	if ($_GET['service'] == "clearList") {
@@ -211,7 +214,7 @@ else {
 function curl_post($post) {
 	$ch = curl_init();
 	$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http";
-	curl_setopt($ch, CURLOPT_URL, $protocol.'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/service.php');
+	curl_setopt($ch, CURLOPT_URL, $protocol.'://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['SCRIPT_NAME']).'/model.php');
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 	curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
