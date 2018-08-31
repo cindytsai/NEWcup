@@ -1,5 +1,5 @@
 <?php
-function transfer_grade($grade) {
+function translate_grade($grade) {
     if ($grade == 'A'){
         return '大一';
     }
@@ -18,9 +18,6 @@ function check_paystat($value) {
         return ' checked disabled';
     }
 }
-$mysql = mysqli_connect('localhost', 'root', '');
-mysqli_query($mysql, "SET NAMES 'utf8'");
-mysqli_select_db($mysql, 'NEWcup');
 $queryMS = mysqli_query($mysql, "SELECT * FROM MS");
 $numMS = mysqli_num_rows($mysql, $queryMS);
 $queryWS = mysqli_query($mysql, "SELECT * FROM WS");
@@ -32,21 +29,6 @@ $numWD = mysqli_num_rows($mysql, $queryWD);
 $queryXD = mysqli_query($mysql, "SELECT * FROM XD");
 $numXD = mysqli_num_rows($mysql, $queryXD);
 ?>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="resource/icon.png">
-    <meta name="description" content="國立臺灣大學新生盃羽球賽報名系統">
-    <meta name="author" content="國立臺灣大學羽球校隊">
-    <title>國立臺灣大學新生盃羽球賽</title>
-    <link href="resource/bootstrap.min.css" rel="stylesheet">
-    <link href="resource/custom.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
     <header>
         <div class="container">
             <h1 class="center">更新繳費狀態</h1>
@@ -74,7 +56,7 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                                     </tr>
                                     <?php
                                     while ($result = mysql_fetch_array($queryMS)){
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].transfer_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="MS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="MS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                     }
                                     ?>
                                 </table>
@@ -98,7 +80,7 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryWS)){
                                         $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].transfer_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="WS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="WS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                     }
                                     ?>
                                 </table>
@@ -124,7 +106,7 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryMD)){
                                         $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].transfer_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].transfer_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="MD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="MD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                     }
                                     ?>
                                 </table>
@@ -150,7 +132,7 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryWD)){
                                         $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].transfer_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].transfer_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="WD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="WD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                     }
                                     ?>
                                 </table>
@@ -176,7 +158,7 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                                     $count = 0;
                                     while ($result = mysql_fetch_array($queryXD)){
                                         $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].transfer_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].transfer_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="XD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="XD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                     }
                                     ?>
                                 </table>
@@ -192,14 +174,3 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
         <br>
         <div class="center"><a href="manager.php"><button>返回</button></a></div>
     </div>
-
-    <section class="footer">
-        <div class="container">
-            <div class="row center">
-                <span><a href="https://www.facebook.com/ntubadminton2012" target="_blank"><img src="resource/facebook.png" class="small_pic"></a></span>
-                <span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
-            </div>
-        </div>
-    </section>
-</body>
-</html>
