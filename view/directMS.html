@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="resource/icon.png">
-	<meta name="description" content="國立臺灣大學新生盃羽球賽報名系統">
-	<meta name="author" content="國立臺灣大學羽球校隊">
-	<title>國立臺灣大學新生盃羽球賽</title>
-	<link href="resource/bootstrap.min.css" rel="stylesheet">
-	<link href="resource/custom.css" rel="stylesheet">
-	<script src="resource/custom.js"></script>
-</head>
-<body>
 	<header>
 		<div class="container">
 			<h1 class="center">2018新生盃羽球賽報名表-男單</h1>
@@ -36,21 +21,12 @@
 							<option value="D">博一</option>
 					</select></p>
 					<p>聯絡電話：<input type="text" id="phone"></p>
-					<p>出生日期：<input class="smaller_box" type="text" id="birthy" placeholder="西元"> 年
-						<input class="smallest_box" type="text" id="birthm"> 月
-						<input class="smallest_box" type="text" id="birthd"> 日</p>
+					<p>出生日期：<input class="smaller_box" type="text" name="birth" placeholder="西元"> 年
+						<input class="smallest_box" type="text" name="birth"> 月
+						<input class="smallest_box" type="text" name="birth"> 日</p>
 					<p>身分證字號：<input type="text" id="identity"></p>
 					<button onclick="sign_up()">確定報名</button>
 				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="footer">
-		<div class="container">
-			<div class="row center">
-				<span><a href="https://www.facebook.com/ntubadminton2012" target="_blank"><img src="resource/facebook.png" class="small_pic"></a></span>
-				<span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
 			</div>
 		</div>
 	</section>
@@ -65,9 +41,9 @@
 					   "&major=" + document.getElementById("major").value +
 					   "&grade=" + document.getElementById("grade").value +
 					   "&phone=" + document.getElementById("phone").value +
-					   "&birthy=" + document.getElementById("birthy").value +
-					   "&birthm=" + document.getElementById("birthm").value +
-					   "&birthd=" + document.getElementById("birthd").value +
+					   "&birthy=" + document.getElementsByName("birth")[0].value +
+					   "&birthm=" + document.getElementsByName("birth")[1].value +
+					   "&birthd=" + document.getElementsByName("birth")[2].value +
 					   "&identity=" + document.getElementById("identity").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
@@ -86,5 +62,3 @@
 			}
 		}
 	</script>
-</body>
-</html>
