@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-$db = mysql_connect('localhost', 'root', '');
-mysql_query("SET NAMES 'utf8'");
-mysql_select_db('NEWcup', $db);
+$mysql = mysqli_connect('localhost', 'root', '');
+mysqli_query($mysql, "SET NAMES 'utf8'");
+mysqli_select_db($mysql, 'NEWcup');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['account']) && isset($_POST['password'])){
     login();
@@ -85,27 +85,15 @@ function safe($value) {
 }
 
 function transfer_grade($grade) {
-    if ($grade == 'A'){
-        return '大一';
-    }
-    else if ($grade == 'B'){
-        return '大二';
-    }
-    else if ($grade == 'C'){
-        return '碩一';
-    }
-    else if ($grade == 'D'){
-        return '博一';
-    }
+    if ($grade == 'A') return '大一';
+    if ($grade == 'B') return '大二';
+    if ($grade == 'C') return '碩一';    
+    if ($grade == 'D') return '博一';    
 }
 
 function transfer_paystat($paystat) {
-    if ($paystat == 0){
-        return '未繳費';
-    }
-    else if ($paystat == 1){
-        return '已繳費';
-    }
+    if ($paystat == 0) return '未繳費';
+    if ($paystat == 1) return '已繳費';
 }
 
 function send_back($msg) {

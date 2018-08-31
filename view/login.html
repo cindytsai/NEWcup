@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="resource/icon.png">
+	<meta name="description" content="國立臺灣大學新生盃羽球賽報名系統">
+	<meta name="author" content="國立臺灣大學羽球校隊">
+	<title>國立臺灣大學新生盃羽球賽</title>
+	<link href="resource/custom.css" rel="stylesheet">
+</head>
+<body>
+	<div class="sign-block center">
+		<h3>管理員登入</h3>
+		<input type="text" id="account" placeholder="帳號"><br>
+		<input type="password" id="password" placeholder="密碼"><br>
+		<div class="center">
+		<button onclick="login()">登入</button>
+		<a href="index.php"><button>取消</button></a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function login() {
+			var request = new XMLHttpRequest();
+			request.open("POST", "index.php");
+			var data = "service=login" + 
+					   "&account=" + document.getElementById("account").value +
+					   "&password=" + document.getElementById("password").value;
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send(data);
+
+			request.onreadystatechange = function() {
+				if (request.readyState === 4 && request.status === 200){
+					var data = JSON.parse(request.responseText);
+					if (data.msg == 'ok'){
+						location.replace("index.php?route=manager");
+					}
+					else {
+						alert(data.msg);
+					}
+				}
+			}
+		}
+	</script>
+</body>
