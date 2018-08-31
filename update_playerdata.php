@@ -8,6 +8,30 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
     </script>
     <?php
 }
+function transfer_grade($grade) {
+    if ($grade == 'B1') {return '大一';}
+    else if ($grade == 'B2') {return '大二';}
+    else if ($grade == 'R1') {return '碩一';}
+    else if ($grade == 'D1') {return '博一';}
+}
+function check_paystat($value) {
+    if ($value == '1'){
+        return ' checked';
+    }
+}
+$db = mysql_connect('localhost', 'root', '');
+mysql_query("SET NAMES 'utf8'");
+mysql_select_db('NEWcup', $db);
+$queryMS = mysql_query("SELECT * FROM MS");
+$numMS = mysql_num_rows($queryMS);
+$queryWS = mysql_query("SELECT * FROM WS");
+$numWS = mysql_num_rows($queryWS);
+$queryMD = mysql_query("SELECT * FROM MD");
+$numMD = mysql_num_rows($queryMD);
+$queryWD = mysql_query("SELECT * FROM WD");
+$numWD = mysql_num_rows($queryWD);
+$queryXD = mysql_query("SELECT * FROM XD");
+$numXD = mysql_num_rows($queryXD);
 ?>
 <html lang="en">
 <head>
@@ -42,7 +66,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
                         <option value="C">男雙</option>
                         <option value="D">女雙</option>
                         <option value="E">混雙</option></select>
-                編號：<input type="text" id="num" style="width: 117px;"> <button onclick="search2()">查詢</button></p>
+                編號：<input type="text" id="num" style="width: 117px;"/> <button onclick="search2()">查詢</button></p>
                 <h4>查詢結果</h4>
                 <div class="row">
                     <div class="col-sm-3 center">
@@ -94,7 +118,7 @@ if (!isset($_SESSION['valid']) || $_SESSION['valid'] != 'Y'){
     <section class="footer">
         <div class="container">
             <div class="row center">
-                <span><a href="https://www.facebook.com/ntubadminton2012" target="_blank"><img src="facebook.png" class="small_pic"></a></span>
+                <span><a href="https://www.facebook.com/ntubadminton2012/?fref=ts" target="_blank"><img src="facebook.png" class="small_pic" /></a></span>
                 <span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
             </div>
         </div>
