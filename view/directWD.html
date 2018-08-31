@@ -1,18 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="shortcut icon" href="resource/icon.png">
-	<meta name="description" content="國立臺灣大學新生盃羽球賽報名系統">
-	<meta name="author" content="國立臺灣大學羽球校隊">
-	<title>國立臺灣大學新生盃羽球賽</title>
-	<link href="resource/bootstrap.min.css" rel="stylesheet">
-	<link href="resource/custom.css" rel="stylesheet">
-	<script src="resource/custom.js"></script>
-</head>
-<body>
 	<header>
 		<div class="container">
 			<h1 class="center">2018新生盃羽球賽報名表-女雙</h1>
@@ -40,9 +25,9 @@
 							<option value="D">博一</option>
 					</select></p>
 					<p>聯絡電話：<input type="text" id="phone1"></p>
-					<p>出生日期：<input class="smaller_box" type="text" id="birth1y" placeholder="西元"> 年
-						<input class="smallest_box" type="text" id="birth1m"> 月
-						<input class="smallest_box" type="text" id="birth1d"> 日</p>
+					<p>出生日期：<input class="smaller_box" type="text" name="birth1" placeholder="西元"> 年
+						<input class="smallest_box" type="text" name="birth1"> 月
+						<input class="smallest_box" type="text" name="birth1"> 日</p>
 					<p>身分證字號：<input type="text" id="identity1"></p>
 				</div>
 				<div class="col-sm-4">
@@ -58,9 +43,9 @@
 						<option value="D">博一</option>
 					</select></p>
 					<p>聯絡電話：<input type="text" id="phone2"></p>
-					<p>出生日期：<input class="smaller_box" type="text" id="birth2y" placeholder="西元"> 年
-						<input class="smallest_box" type="text" id="birth2m"> 月
-						<input class="smallest_box" type="text" id="birth2d"> 日</p>
+					<p>出生日期：<input class="smaller_box" type="text" name="birth2" placeholder="西元"> 年
+						<input class="smallest_box" type="text" name="birth2"> 月
+						<input class="smallest_box" type="text" name="birth2"> 日</p>
 					<p>身分證字號：<input type="text" id="identity2"></p>
 				</div>
 			</div>
@@ -68,15 +53,6 @@
 				<div class="col-sm-4 col-sm-offset-2">
 					<button onclick="sign_up()">確定報名</button>
 				</div>
-			</div>
-		</div>
-	</section>
-
-	<section class="footer">
-		<div class="container">
-			<div class="row center">
-				<span><a href="https://www.facebook.com/ntubadminton2012" target="_blank"><img src="resource/facebook.png" class="small_pic"></a></span>
-				<span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
 			</div>
 		</div>
 	</section>
@@ -96,12 +72,12 @@
 					   "&grade2=" + document.getElementById("grade2").value +
 					   "&phone1=" + document.getElementById("phone1").value +
 					   "&phone2=" + document.getElementById("phone2").value +
-					   "&birthy1=" + document.getElementById("birth1y").value +
-					   "&birthy2=" + document.getElementById("birth2y").value +
-					   "&birthm1=" + document.getElementById("birth1m").value +
-					   "&birthm2=" + document.getElementById("birth2m").value +
-					   "&birthd1=" + document.getElementById("birth1d").value +
-					   "&birthd2=" + document.getElementById("birth2d").value +
+					   "&birthy1=" + document.getElementsByName("birth1")[0].value +
+					   "&birthy2=" + document.getElementsByName("birth2")[0].value +
+					   "&birthm1=" + document.getElementsByName("birth1")[1].value +
+					   "&birthm2=" + document.getElementsByName("birth2")[1].value +
+					   "&birthd1=" + document.getElementsByName("birth1")[2].value +
+					   "&birthd2=" + document.getElementsByName("birth2")[2].value +
 					   "&identity_W1=" + document.getElementById("identity1").value +
 					   "&identity_W2=" + document.getElementById("identity2").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -121,5 +97,3 @@
 			}
 		}
 	</script>
-</body>
-</html>
