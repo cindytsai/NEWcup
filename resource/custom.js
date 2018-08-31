@@ -1,7 +1,7 @@
-function check_id(location) {
+function check_id(type, location) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "service=checkId&id=" + document.getElementById(location).value;
+	var data = "service=checkId&type=" + type + "&id=" + document.getElementById(location).value;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 
@@ -18,12 +18,13 @@ function check_id(location) {
 	}
 }
 
-function check_birth(location) {
+function check_birth(type, location) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "service=checkBirth&birthy=" + document.getElementById(location+"y").value
-			 + "&birthm=" + document.getElementById(location+"m").value
-			 + "&birthd=" + document.getElementById(location+"d").value;
+	var data = "service=checkBirth&type=" + type
+			 + "&birthy=" + document.getElementsByName(location)[0].value
+			 + "&birthm=" + document.getElementsByName(location)[1].value
+			 + "&birthd=" + document.getElementsByName(location)[2].value;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 
@@ -40,10 +41,10 @@ function check_birth(location) {
 	}
 }
 
-function check_phone(location) {
+function check_phone(type, location) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "service=checkPhone&phone=" + document.getElementById(location).value;
+	var data = "service=checkPhone&type=" + type + "&phone=" + document.getElementById(location).value;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 
@@ -60,10 +61,10 @@ function check_phone(location) {
 	}
 }
 
-function check_identityM(location) {
+function check_identityM(type, location) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "service=checkIdentityM&identity=" + document.getElementById(location).value;
+	var data = "service=checkIdentityM&type=" + type + "&identity=" + document.getElementById(location).value;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 
@@ -80,10 +81,10 @@ function check_identityM(location) {
 	}
 }
 
-function check_identityF(location) {
+function check_identityF(type, location) {
 	var request = new XMLHttpRequest();
 	request.open("POST", "index.php");
-	var data = "service=checkIdentityF&identity=" + document.getElementById(location).value;
+	var data = "service=checkIdentityF&type=" + type + "&identity=" + document.getElementById(location).value;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 
