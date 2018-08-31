@@ -1,5 +1,5 @@
 <?php
-function transfer_grade($grade) {
+function translate_grade($grade) {
     if ($grade == 'A'){
         return '大一';
     }
@@ -13,35 +13,17 @@ function transfer_grade($grade) {
         return '博一';
     }
 }
-$db = mysql_connect('localhost', 'root', '');
-mysql_query("SET NAMES 'utf8'");
-mysql_select_db('NEWcup', $db);
-$queryMS = mysql_query("SELECT * FROM MS");
-$numMS = mysql_num_rows($queryMS);
-$queryWS = mysql_query("SELECT * FROM WS");
-$numWS = mysql_num_rows($queryWS);
-$queryMD = mysql_query("SELECT * FROM MD");
-$numMD = mysql_num_rows($queryMD);
-$queryWD = mysql_query("SELECT * FROM WD");
-$numWD = mysql_num_rows($queryWD);
-$queryXD = mysql_query("SELECT * FROM XD");
-$numXD = mysql_num_rows($queryXD);
+$queryMS = mysqli_query($mysql, "SELECT * FROM MS");
+$numMS = mysqli_num_rows($queryMS);
+$queryWS = mysqli_query($mysql, "SELECT * FROM WS");
+$numWS = mysqli_num_rows($queryWS);
+$queryMD = mysqli_query($mysql, "SELECT * FROM MD");
+$numMD = mysqli_num_rows($queryMD);
+$queryWD = mysqli_query($mysql, "SELECT * FROM WD");
+$numWD = mysqli_num_rows($queryWD);
+$queryXD = mysqli_query($mysql, "SELECT * FROM XD");
+$numXD = mysqli_num_rows($queryXD);
 ?>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="icon.png">
-    <meta name="description" content="國立臺灣大學新生盃羽球賽報名系統">
-    <meta name="author" content="國立臺灣大學羽球校隊">
-    <title>國立臺灣大學新生盃羽球賽</title>
-    <link href="custom.css" rel="stylesheet">
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
     <header>
         <div class="container">
             <h1 class="center">國立臺灣大學新生盃羽球賽報名系統</h1>
@@ -66,11 +48,11 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                     </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryMS)){
+                                    while ($result = mysqli_fetch_array($queryMS)){
                                         ?>
                                         <tr>
                                             <td><?php echo $result['NUM'];?></td>
-                                            <td><?php echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
+                                            <td><?php echo $result['MAJOR'].translate_grade($result['GRADE']);?></td>
                                             <td><?php echo $result['NAME'];?></td>
                                         </tr>
                                         <?php
@@ -93,11 +75,11 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                     </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryWS)){
+                                    while ($result = mysqli_fetch_array($queryWS)){
                                         ?>
                                         <tr>
                                             <td><?php echo $result['NUM'];?></td>
-                                            <td><?php echo $result['MAJOR'].transfer_grade($result['GRADE']);?></td>
+                                            <td><?php echo $result['MAJOR'].translate_grade($result['GRADE']);?></td>
                                             <td><?php echo $result['NAME'];?></td>
                                         </tr>
                                         <?php
@@ -122,13 +104,13 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                     </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryMD)){
+                                    while ($result = mysqli_fetch_array($queryMD)){
                                         ?>
                                         <tr>
                                             <td><?php echo $result['NUM'];?></td>
-                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['MAJOR_1'].translate_grade($result['GRADE_1']);?></td>
                                             <td><?php echo $result['NAME_1'];?></td>
-                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['MAJOR_2'].translate_grade($result['GRADE_2']);?></td>
                                             <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
                                         <?php
@@ -153,13 +135,13 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                     </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryWD)){
+                                    while ($result = mysqli_fetch_array($queryWD)){
                                         ?>
                                         <tr>
                                             <td><?php echo $result['NUM'];?></td>
-                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['MAJOR_1'].translate_grade($result['GRADE_1']);?></td>
                                             <td><?php echo $result['NAME_1'];?></td>
-                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['MAJOR_2'].translate_grade($result['GRADE_2']);?></td>
                                             <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
                                         <?php
@@ -184,13 +166,13 @@ $numXD = mysql_num_rows($queryXD);
                                         <th>姓名</th>
                                     </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryXD)){
+                                    while ($result = mysqli_fetch_array($queryXD)){
                                         ?>
                                         <tr>
                                             <td><?php echo $result['NUM'];?></td>
-                                            <td><?php echo $result['MAJOR_1'].transfer_grade($result['GRADE_1']);?></td>
+                                            <td><?php echo $result['MAJOR_1'].translate_grade($result['GRADE_1']);?></td>
                                             <td><?php echo $result['NAME_1'];?></td>
-                                            <td><?php echo $result['MAJOR_2'].transfer_grade($result['GRADE_2']);?></td>
+                                            <td><?php echo $result['MAJOR_2'].translate_grade($result['GRADE_2']);?></td>
                                             <td><?php echo $result['NAME_2'];?></td>
                                         </tr>
                                         <?php
@@ -241,15 +223,6 @@ $numXD = mysql_num_rows($queryXD);
         <br>
         <div class="center"><a href="index.html"><button>返回首頁</button></a></div>
     </div>
-
-    <section class="footer">
-        <div class="container">
-            <div class="row center">
-                <span><a href="https://www.facebook.com/ntubadminton2012/?fref=ts" target="_blank"><img src="facebook.png" class="small_pic" /></a></span>
-                <span class="small">&copy; 2018 NTU Badminton All Rights Reserved</span>
-            </div>
-        </div>
-    </section>
 
     <script type="text/javascript">
         function search1() {
@@ -307,5 +280,3 @@ $numXD = mysql_num_rows($queryXD);
             }
         }
     </script>
-</body>
-</html>
