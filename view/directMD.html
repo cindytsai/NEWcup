@@ -88,10 +88,10 @@
 					var data = JSON.parse(request.responseText);
 					if (data.msg == 'ok'){
 						alert('報名成功，您的編號為 ' + data.num + '。請於指定時間內繳費');
-						location.replace("index.html");
+						location.replace("index.php?route=manager");
 					}
 					else {
-						alert(data.msg);
+						alert(data);
 					}
 				}
 			}

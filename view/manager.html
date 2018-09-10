@@ -58,6 +58,7 @@
 			request.send(data);
 			request.onreadystatechange = function() {
 				if (request.readyState === 4 && request.status === 200) {
+					alert(data);
 					var data = JSON.parse(request.responseText);
 					if (data.message == 'Success') {
 						location.assign("tournament/index.php");

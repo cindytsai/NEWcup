@@ -7,9 +7,9 @@ function check_id(type, location) {
 
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			var data = JSON.parse(request.responseText);
-			if (data.msg != 'ok') {
-				document.getElementById(location+"_result").innerHTML = data.msg;
+			var data = request.responseText;
+			if (data != 'ok') {
+				document.getElementById(location+"_result").innerHTML = data;
 			}
 			else {
 				document.getElementById(location+"_result").innerHTML = "";
@@ -30,9 +30,9 @@ function check_birth(type, location) {
 
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {              
-			var data = JSON.parse(request.responseText);
-			if (data.msg != 'ok') {
-				document.getElementById(location+"_result").innerHTML = data.msg;
+			var data = request.responseText;
+			if (data != 'ok') {
+				document.getElementById(location+"_result").innerHTML = data;
 			}
 			else {
 				document.getElementById(location+"_result").innerHTML = "";
@@ -50,9 +50,9 @@ function check_phone(type, location) {
 
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
-			var data = JSON.parse(request.responseText);
-			if (data.msg != 'ok') {
-				document.getElementById(location+"_result").innerHTML = data.msg;
+			var data = request.responseText;
+			if (data != 'ok') {
+				document.getElementById(location+"_result").innerHTML = data;
 			}
 			else {
 				document.getElementById(location+"_result").innerHTML = "";
@@ -70,9 +70,9 @@ function check_identityM(type, location) {
 
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {              
-			var data = JSON.parse(request.responseText);
-			if (data.msg != 'ok') {
-				document.getElementById(location+"_result").innerHTML = data.msg;
+			var data = request.responseText;
+			if (data != 'ok') {
+				document.getElementById(location+"_result").innerHTML = data;
 			}
 			else {
 				document.getElementById(location+"_result").innerHTML = "";
@@ -90,9 +90,9 @@ function check_identityF(type, location) {
 
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {              
-			var data = JSON.parse(request.responseText);
-			if (data.msg != 'ok') {
-				document.getElementById(location+"_result").innerHTML = data.msg;
+			var data = request.responseText;
+			if (data != 'ok') {
+				document.getElementById(location+"_result").innerHTML = data;
 			}
 			else {
 				document.getElementById(location+"_result").innerHTML = "";

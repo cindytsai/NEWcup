@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col-sm-6 col-sm-offset-3">
 					<p>項目：<input type="text" value="男單" readonly></p>
-					<p>學號：<input type="text" id="id" onchange="check_id('id')"></p>
+					<p>學號：<input type="text" id="id" onchange="check_id('MS', 'id')"></p>
 					<p class="text-danger" id="id_result"></p>
 					<p>姓名：<input type="text" id="name"></p>
 					<p>系別：<input type="text" id="major"></p>
@@ -20,13 +20,13 @@
 							<option value="C">碩一</option>
 							<option value="D">博一</option>
 					</select></p>
-					<p>聯絡電話：<input type="text" id="phone" onchange="check_phone('phone')"></p>
+					<p>聯絡電話：<input type="text" id="phone" onchange="check_phone('MS', 'phone')"></p>
 					<p class="text-danger" id="phone_result"></p>
 					<p>出生日期：<input class="smaller_box" type="text" name="birth" placeholder="西元"> 年
 						<input class="smallest_box" type="text" name="birth"> 月
-						<input class="smallest_box" type="text" name="birth" onchange="check_birth('birth')"> 日</p>
+						<input class="smallest_box" type="text" name="birth" onchange="check_birth('MS', 'birth')"> 日</p>
 					<p class="text-danger" id="birth_result"></p>
-					<p>身分證字號：<input type="text" id="identity" onchange="check_identityM('identity')"></p>
+					<p>身分證字號：<input type="text" id="identity" onchange="check_identityM('MS', 'identity')"></p>
 					<p class="text-danger" id="identity_result"></p>
 					<p><input type="checkbox" id="check" value="Y"> 報名確認</p>
 					<button onclick="sign_up()">確定報名</button>
@@ -57,14 +57,14 @@
 			request.send(data);
 
 			request.onreadystatechange = function() {
-				if (request.readyState === 4 && request.status === 200){  
+				if (request.readyState === 4 && request.status === 200) {
 					var data = JSON.parse(request.responseText);
 					if (data.msg == 'ok'){
 						alert('報名成功，您的編號為 ' + data.num + '。請於指定時間內繳費');
-						location.replace("index.html");
+						location.replace("index.php");
 					}
 					else {
-						alert(data.msg);
+						alert(data);
 					}
 				}
 			}

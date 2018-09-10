@@ -3,9 +3,9 @@ $mysql = mysqli_connect('localhost', 'root', '');
 mysqli_query($mysql, "SET NAMES 'utf8'");
 mysqli_select_db($mysql, 'NEWcup');
 
-function querySignup() {
+function querySignup($mysql) {
 	$sql = mysqli_query($mysql, "SELECT SIGNUP FROM setup");
-	$fetch = mysqli_fetch_row($mysql, $sql);
+	$fetch = mysqli_fetch_row($sql);
 	$return = ($fetch[0] == 1) ? 1 : 0;
 	return $return;
 }
@@ -14,16 +14,15 @@ function checkManager() {
 	if (isset($_COOKIE['account']) && $_COOKIE['account'] == "NTUcup") return true;
 	else return false;	
 }
-
 if (isset($_GET['signup'])) {
 	if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
-		if (querySignup()) {
+		if (querySignup($mysql)) {
 			include_once("view/header.html");
 			include_once("view/".$_GET['signup'].".html");
 			include_once("view/footer.html");
 		}
 		else {
-			// alert 已不開放報名
+			alert("報名時間已過");
 			include_once("view/header.html");
 			include_once("view/index.html");
 			include_once("view/footer.html");
@@ -48,9 +47,13 @@ if (isset($_GET['signup'])) {
 	}
 }
 elseif (isset($_GET['route'])) {
-	if (in_array($_GET['route'], array("login", "document")) {
+	if ($_GET['route'] == "login") {
 		include_once("view/header.html");
-		include_once("view/".$_GET['route'].".html");
+		include_once("view/login.html");
+	}
+	elseif ($_GET['route'] == "document") {
+		include_once("view/header.html");
+		include_once("view/document.html");
 		include_once("view/footer.html");
 	}
 	elseif ($_GET['route'] == "list") {
@@ -68,7 +71,7 @@ elseif (isset($_GET['route'])) {
 			include_once("view/footer.html");
 		}
 	}
-	elseif (in_array($_GET['route'], array("manager", "update_playerdata")) {
+	elseif (in_array($_GET['route'], array("manager", "update_playerdata"))) {
 		if (checkManager()) {
 			include_once("view/header.html");
 			include_once("view/".$_GET['route'].".html");
@@ -94,33 +97,25 @@ elseif (isset($_POST['service'])) {
 	if ($_POST['service'] == "login") {
 		if ($_POST['account'] == "NTUcup" && $_POST['password'] == "0986036999") {
 			if (setcookie("account", "NTUcup")) {
-				return json_encode(array("msg" => "ok"));
+				echo json_encode(array("msg" => "ok"));
 			}
 			else {
-				return json_encode(array("msg" => "Unable to perform login"));
+				echo json_encode(array("msg" => "Unable to perform login"));
 			}
 		}
 		else {
-			return json_encode(array("msg" => "Wrong account or password"));
-		}
-	}
-	elseif ($_POST['service'] == "logout") {
-		if (setcookie("account", "", time()-3600)) {
-			return json_encode(array("msg" => "ok"));
-		}
-		else {
-			return json_encode(array("msg" => "Unable to perform logout"));
+			echo json_encode(array("msg" => "Wrong account or password"));
 		}
 	}
 	elseif ($_POST['service'] == "signup") {
-		if (in_array($_POST['type'], array('MS', 'WS', 'MD', 'WD', 'XD'))) return curl_post($_POST);
+		if (in_array($_POST['type'], array('MS', 'WS', 'MD', 'WD', 'XD'))) echo curl_post($_POST);
 		elseif (in_array($_POST['type'], array('directMS', 'directWS', 'directMD', 'directWD', 'directXD'))) {
-			if (checkManager()) return curl_post($_POST);
-			else return // not manager
+			if (checkManager()) echo curl_post($_POST);
+			else echo json_encode(array("msg" => "Only available for manager"));
 		}
 	}
-	elseif (in_array($_POST['service'], array("checkId", "checkBirth", "checkPhone", "checkIdentityM", "checkIdentityF"))) {
-		return curl_post($_POST);
+	elseif (in_array($_POST['service'], array("search", "delete", "checkId", "checkBirth", "checkPhone", "checkIdentityM", "checkIdentityF"))) {
+		echo curl_post($_POST);
 	}
 }
 elseif (isset($_GET['service'])) {
@@ -138,7 +133,7 @@ elseif (isset($_GET['service'])) {
 			mysqli_query($mysql, $deleteXD);
 			$init = "UPDATE setup SET MS_NUM=1, WS_NUM=1, MD_NUM=1, WD_NUM=1, XD_NUM=1";
 			mysqli_query($mysql, $init);
-			// alert success
+			alert("成功清空報名資料");
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}
@@ -160,7 +155,7 @@ elseif (isset($_GET['service'])) {
 			mysqli_query($mysql, $deleteWD);
 			$deleteXD = "DELETE FROM XD WHERE PAYSTAT=0";
 			mysqli_query($mysql, $deleteXD);
-			// alert success
+			alert("成功確認比賽名單");
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}
@@ -174,9 +169,9 @@ elseif (isset($_GET['service'])) {
 		if (checkManager()) {
 			$sql = "UPDATE setup SET SIGNUP=0";
 			if (mysqli_query($mysql, $sql)) {
-				// alert success
+				alert("成功關閉報名功能");
 			} else {
-				// alert fail
+				alert(mysqli_error(mysqli_query($mysql, $sql)));
 			}
 			include_once("view/header.html");
 			include_once("view/manager.html");
@@ -191,9 +186,9 @@ elseif (isset($_GET['service'])) {
 		if (checkManager()) {
 			$sql = "UPDATE setup SET SIGNUP=1";
 			if (mysqli_query($mysql, $sql)) {
-				// alert success
+				alert("成功開啟報名功能");
 			} else {
-				// alert fail
+				alert("無法開啟報名功能");
 			}
 			include_once("view/header.html");
 			include_once("view/manager.html");
@@ -202,6 +197,18 @@ elseif (isset($_GET['service'])) {
 			include_once("view/header.html");
 			include_once("view/index.html");
 			include_once("view/footer.html");
+		}
+	}
+	elseif ($_GET['service'] == "logout") {
+		if (setcookie("account", "", time()-3600)) {
+			include_once("view/header.html");
+			include_once("view/index.html");
+			include_once("view/footer.html");
+		}
+		else {
+			echo "Unable to perform logout";
+			include_once("view/header.html");
+			include_once("view/manager.html");
 		}
 	}
 }
@@ -222,4 +229,8 @@ function curl_post($post) {
 	$result = curl_exec($ch);
 	curl_close($ch);
 	return $result;
+}
+
+function alert($content) {
+	echo "<script>alert('".$content."')</script>";
 }

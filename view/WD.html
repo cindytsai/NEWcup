@@ -13,7 +13,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-2">
-					<p>學號：<input type="text" id="id1" onchange="check_id('id1')"></p>
+					<p>學號：<input type="text" id="id1" onchange="check_id('WD', 'id1')"></p>
 					<p class="text-danger" id="id1_result"></p>
 					<p>姓名：<input type="text" id="name1"></p>
 					<p>系別：<input type="text" id="major1"></p>
@@ -24,17 +24,17 @@
 							<option value="C">碩一</option>
 							<option value="D">博一</option>
 					</select></p>
-					<p>聯絡電話：<input type="text" id="phone1" onchange="check_phone('phone1')"></p>
+					<p>聯絡電話：<input type="text" id="phone1" onchange="check_phone('WD', 'phone1')"></p>
 					<p class="text-danger" id="phone1_result"></p>
 					<p>出生日期：<input class="smaller_box" type="text" name="birth1" placeholder="西元"> 年
 						<input class="smallest_box" type="text" name="birth1"> 月
-						<input class="smallest_box" type="text" name="birth1" onchange="check_birth('birth1')"> 日</p>
+						<input class="smallest_box" type="text" name="birth1" onchange="check_birth('WD', 'birth1')"> 日</p>
 					<p class="text-danger" id="birth1_result"></p>
-					<p>身分證字號：<input type="text" id="identity1" onchange="check_identityF('identity1')"></p>
+					<p>身分證字號：<input type="text" id="identity1" onchange="check_identityF('WD', 'identity1')"></p>
 					<p class="text-danger" id="identity1_result"></p>
 				</div>
 				<div class="col-sm-4">
-					<p>學號：<input type="text" id="id2" onchange="check_id('id2')"></p>
+					<p>學號：<input type="text" id="id2" onchange="check_id('WD', 'id2')"></p>
 					<p class="text-danger" id="id2_result"></p>
 					<p>姓名：<input type="text" id="name2"></p>
 					<p>系別：<input type="text" id="major2"></p>
@@ -45,13 +45,13 @@
 						<option value="C">碩一</option>
 						<option value="D">博一</option>
 					</select></p>
-					<p>聯絡電話：<input type="text" id="phone2" onchange="check_phone('phone2')"></p>
+					<p>聯絡電話：<input type="text" id="phone2" onchange="check_phone('WD', 'phone2')"></p>
 					<p class="text-danger" id="phone2_result"></p>
 					<p>出生日期：<input class="smaller_box" type="text" name="birth2" placeholder="西元"> 年
 						<input class="smallest_box" type="text" name="birth2"> 月
-						<input class="smallest_box" type="text" name="birth2" onchange="check_birth('birth2')"> 日</p>
+						<input class="smallest_box" type="text" name="birth2" onchange="check_birth('WD', 'birth2')"> 日</p>
 					<p class="text-danger" id="birth2_result"></p>
-					<p>身分證字號：<input type="text" id="identity2" onchange="check_identityF('identity2')"></p>
+					<p>身分證字號：<input type="text" id="identity2" onchange="check_identityF('WD', 'identity2')"></p>
 					<p class="text-danger" id="identity2_result"></p>
 				</div>
 			</div>
@@ -99,10 +99,10 @@
 					var data = JSON.parse(request.responseText);
 					if (data.msg == 'ok'){
 						alert('報名成功，您的編號為 ' + data.num + '。請於指定時間內繳費');
-						location.replace("index.html");
+						location.replace("index.php");
 					}
 					else {
-						alert(data.msg);
+						alert(data);
 					}
 				}
 			}

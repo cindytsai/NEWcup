@@ -1,33 +1,23 @@
 <?php
 function translate_grade($grade) {
-    if ($grade == 'A'){
-        return '大一';
-    }
-    else if ($grade == 'B'){
-        return '大二';
-    }
-    else if ($grade == 'C'){
-        return '碩一';
-    }
-    else if ($grade == 'D'){
-        return '博一';
-    }
+    if ($grade == 'A') return '大一';
+    elseif ($grade == 'B') return '大二';
+    elseif ($grade == 'C') return '碩一';
+    elseif ($grade == 'D') return '博一';
 }
 function check_paystat($value) {
-    if ($value == '1'){
-        return ' checked disabled';
-    }
+    if ($value == '1') return ' checked disabled';
 }
 $queryMS = mysqli_query($mysql, "SELECT * FROM MS");
-$numMS = mysqli_num_rows($mysql, $queryMS);
+$numMS = ($queryMS == false) ? 0 : mysqli_num_rows($queryMS);
 $queryWS = mysqli_query($mysql, "SELECT * FROM WS");
-$numWS = mysqli_num_rows($mysql, $queryWS);
+$numWS = ($queryWS == false) ? 0 : mysqli_num_rows($queryWS);
 $queryMD = mysqli_query($mysql, "SELECT * FROM MD");
-$numMD = mysqli_num_rows($mysql, $queryMD);
+$numMD = ($queryMD == false) ? 0 : mysqli_num_rows($queryMD);
 $queryWD = mysqli_query($mysql, "SELECT * FROM WD");
-$numWD = mysqli_num_rows($mysql, $queryWD);
+$numWD = ($queryWD == false) ? 0 : mysqli_num_rows($queryWD);
 $queryXD = mysqli_query($mysql, "SELECT * FROM XD");
-$numXD = mysqli_num_rows($mysql, $queryXD);
+$numXD = ($queryXD == false) ? 0 : mysqli_num_rows($queryXD);
 ?>
     <header>
         <div class="container">
@@ -48,15 +38,15 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>繳費</th>
-                                    </tr>
                                     <?php
-                                    while ($result = mysql_fetch_array($queryMS)){
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="MS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                    if (!$queryMS) {
+                                        echo "目前尚無選手報名";
+                                    }
+                                    else {
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
+                                        while ($result = mysqli_fetch_array($queryMS)){
+                                            echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="MS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        }
                                     }
                                     ?>
                                 </table>
@@ -70,17 +60,15 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                         <div id="collapse2" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>繳費</th>
-                                    </tr>
                                     <?php
-                                    $count = 0;
-                                    while ($result = mysql_fetch_array($queryWS)){
-                                        $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="WS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                    if (!$queryWS) {
+                                        echo "目前尚無選手報名";
+                                    }
+                                    else {
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
+                                        while ($result = mysqli_fetch_array($queryWS)){
+                                            echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR'].translate_grade($result['GRADE']).'</td><td>'.$result['NAME'].'</td><td><input type="checkbox" name="WS[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        }
                                     }
                                     ?>
                                 </table>
@@ -94,19 +82,15 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                         <div id="collapse3" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>繳費</th>
-                                    </tr>
                                     <?php
-                                    $count = 0;
-                                    while ($result = mysql_fetch_array($queryMD)){
-                                        $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="MD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                    if (!$queryMD) {
+                                        echo "目前尚無選手報名";
+                                    }
+                                    else {
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
+                                        while ($result = mysqli_fetch_array($queryMD)){
+                                            echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="MD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        }
                                     }
                                     ?>
                                 </table>
@@ -120,19 +104,16 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                         <div id="collapse4" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>繳費</th>
-                                    </tr>
                                     <?php
-                                    $count = 0;
-                                    while ($result = mysql_fetch_array($queryWD)){
-                                        $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="WD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                    if (!$queryWD) {
+                                        echo "目前尚無選手報名";
+                                    }
+                                    else {
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
+                                        while ($result = mysqli_fetch_array($queryWD)){
+                                            $count += 1;
+                                            echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="WD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        }
                                     }
                                     ?>
                                 </table>
@@ -146,19 +127,16 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
                         <div id="collapse5" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>繳費</th>
-                                    </tr>
                                     <?php
-                                    $count = 0;
-                                    while ($result = mysql_fetch_array($queryXD)){
-                                        $count += 1;
-                                        echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="XD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                    if (!$queryWD) {
+                                        echo "目前尚無選手報名";
+                                    }
+                                    else {
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
+                                        while ($result = mysqli_fetch_array($queryXD)){
+                                            $count += 1;
+                                            echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="XD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
+                                        }
                                     }
                                     ?>
                                 </table>
@@ -172,5 +150,5 @@ $numXD = mysqli_num_rows($mysql, $queryXD);
             </div>
         </div>
         <br>
-        <div class="center"><a href="manager.php"><button>返回</button></a></div>
+        <div class="center"><a href="index.php?route=manager"><button>返回</button></a></div>
     </div>
