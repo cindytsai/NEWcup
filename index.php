@@ -168,11 +168,8 @@ elseif (isset($_GET['service'])) {
 	elseif ($_GET['service'] == "closeSignup") {
 		if (checkManager()) {
 			$sql = "UPDATE setup SET SIGNUP=0";
-			if (mysqli_query($mysql, $sql)) {
-				alert("成功關閉報名功能");
-			} else {
-				alert(mysqli_error(mysqli_query($mysql, $sql)));
-			}
+			if (mysqli_query($mysql, $sql)) alert("成功關閉報名功能");
+			else alert(mysqli_error(mysqli_query($mysql, $sql)));
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}
@@ -185,11 +182,8 @@ elseif (isset($_GET['service'])) {
 	elseif ($_GET['service'] == "openSignup") {
 		if (checkManager()) {
 			$sql = "UPDATE setup SET SIGNUP=1";
-			if (mysqli_query($mysql, $sql)) {
-				alert("成功開啟報名功能");
-			} else {
-				alert("無法開啟報名功能");
-			}
+			if (mysqli_query($mysql, $sql)) alert("成功開啟報名功能");
+			else alert(mysqli_error(mysqli_query($mysql, $sql)));
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}

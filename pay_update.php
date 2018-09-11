@@ -30,10 +30,6 @@ for($i = 0; $i < $countXD; $i++){
 	$XD = $payXD[$i];
 	mysqli_query($mysql, "UPDATE XD SET PAYSTAT=1 WHERE NUM=$XD");
 }
-
-function safe($value) {
-	return htmlspecialchars(addslashes($value));
-}
 ?>
 
 <script>

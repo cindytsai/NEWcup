@@ -5,9 +5,11 @@ function translate_grade($grade) {
     elseif ($grade == 'C') return '碩一';
     elseif ($grade == 'D') return '博一';
 }
+
 function check_paystat($value) {
     if ($value == '1') return ' checked disabled';
 }
+
 $queryMS = mysqli_query($mysql, "SELECT * FROM MS");
 $numMS = ($queryMS == false) ? 0 : mysqli_num_rows($queryMS);
 $queryWS = mysqli_query($mysql, "SELECT * FROM WS");
@@ -111,7 +113,6 @@ $numXD = ($queryXD == false) ? 0 : mysqli_num_rows($queryXD);
                                     else {
                                         echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
                                         while ($result = mysqli_fetch_array($queryWD)){
-                                            $count += 1;
                                             echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="WD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                         }
                                     }
@@ -128,13 +129,12 @@ $numXD = ($queryXD == false) ? 0 : mysqli_num_rows($queryXD);
                             <div class="panel-body">
                                 <table border="2" width="100%">
                                     <?php
-                                    if (!$queryWD) {
+                                    if (!$queryXD) {
                                         echo "目前尚無選手報名";
                                     }
                                     else {
                                         echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費</th></tr>";
                                         while ($result = mysqli_fetch_array($queryXD)){
-                                            $count += 1;
                                             echo '<tr><td>'.$result['NUM'].'</td><td>'.$result['MAJOR_1'].translate_grade($result['GRADE_1']).'</td><td>'.$result['NAME_1'].'</td><td>'.$result['MAJOR_2'].translate_grade($result['GRADE_2']).'</td><td>'.$result['NAME_2'].'</td><td><input type="checkbox" name="XD[]" value="'.$result['NUM'].'"'.check_paystat($result['PAYSTAT']).'></td></tr>';
                                         }
                                     }
