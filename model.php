@@ -544,7 +544,7 @@ function signup($post) {
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
-                return '資料庫異常，請重試！';
+                return "資料庫異常，請重試！";
             }
         }
         elseif ($post['type'] == 'WS'){
@@ -560,7 +560,7 @@ function signup($post) {
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
-                return '資料庫異常，請重試！';
+                return "資料庫異常，請重試！";
             }
         }
     }
@@ -613,7 +613,7 @@ function signup($post) {
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
-                return '資料庫異常，請重試！';
+                return "資料庫異常，請重試！";
             }
         }
         elseif ($new == 'WD'){
@@ -631,7 +631,7 @@ function signup($post) {
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
-                return '資料庫異常，請重試！';
+                return "資料庫異常，請重試！";
             }
         }
         elseif ($new == 'XD'){
@@ -649,7 +649,7 @@ function signup($post) {
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
-                return '資料庫異常，請重試！';
+                return "資料庫異常，請重試！";
             }
         }
     }

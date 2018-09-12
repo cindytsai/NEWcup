@@ -1,10 +1,16 @@
 <?php
 function translate_grade($grade) {
     if ($grade == 'A') return '大一';
-    else if ($grade == 'B') return '大二';
-    else if ($grade == 'C') return '碩一';
-    else if ($grade == 'D') return '博一';
+    elseif ($grade == 'B') return '大二';
+    elseif ($grade == 'C') return '碩一';
+    elseif ($grade == 'D') return '博一';
 }
+
+function translate_paystat($paystat) {
+    if ($paystat == 0) return '未繳費';
+    elseif ($paystat == 1) return '已繳費';
+}
+
 $queryMS = mysqli_query($mysql, "SELECT * FROM MS");
 $numMS = mysqli_num_rows($queryMS);
 $queryWS = mysqli_query($mysql, "SELECT * FROM WS");
@@ -39,9 +45,9 @@ $numXD = mysqli_num_rows($queryXD);
                                         echo "目前尚無選手報名";
                                     }
                                     else {
-                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th></tr>";
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>繳費狀態</th></tr>";
                                         while ($result = mysqli_fetch_array($queryMS)) {
-                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR'].translate_grade($result['GRADE'])."</td><td>".$result['NAME']."</td></tr>";
+                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR'].translate_grade($result['GRADE'])."</td><td>".$result['NAME']."</td><td>".translate_paystat($result['PAYSTAT'])."</td></tr>";
                                         }
                                     }
                                     ?>
@@ -61,9 +67,9 @@ $numXD = mysqli_num_rows($queryXD);
                                         echo "目前尚無選手報名";
                                     }
                                     else {
-                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th></tr>";
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>繳費狀態</th></tr>";
                                         while ($result = mysqli_fetch_array($queryWS)){
-                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR'].translate_grade($result['GRADE'])."</td><td>".$result['NAME']."</td></tr>";
+                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR'].translate_grade($result['GRADE'])."</td><td>".$result['NAME']."</td><td>".translate_paystat($result['PAYSTAT'])."</td></tr>";
                                         }
                                     }
                                     ?>
@@ -83,9 +89,9 @@ $numXD = mysqli_num_rows($queryXD);
                                         echo "目前尚無選手報名";
                                     }
                                     else {
-                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th></tr>";
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費狀態</th></tr>";
                                         while ($result = mysqli_fetch_array($queryMD)){
-                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td></tr>";
+                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td><td>".translate_paystat($result['PAYSTAT'])."</td></tr>";
                                         }
                                     }
                                     ?>
@@ -100,21 +106,14 @@ $numXD = mysqli_num_rows($queryXD);
                         <div id="collapse4" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <table border="2" width="100%">
-                                    <tr>
-                                        <th>編號</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                        <th>系級</th>
-                                        <th>姓名</th>
-                                    </tr>
                                     <?php
                                     if ($numWD == 0) {
                                         echo "目前尚無選手報名";
                                     }
                                     else {
-                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th></tr>";
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費狀態</th></tr>";
                                         while ($result = mysqli_fetch_array($queryWD)){
-                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td></tr>";
+                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td><td>".translate_paystat($result['PAYSTAT'])."</td></tr>";
                                         }
                                     }
                                     ?>
@@ -134,9 +133,9 @@ $numXD = mysqli_num_rows($queryXD);
                                         echo "目前尚無選手報名";
                                     }
                                     else {
-                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th></tr>";
+                                        echo "<tr><th>編號</th><th>系級</th><th>姓名</th><th>系級</th><th>姓名</th><th>繳費狀態</th></tr>";
                                         while ($result = mysqli_fetch_array($queryXD)){
-                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td></tr>";
+                                            echo "<tr><td>".$result['NUM']."</td><td>".$result['MAJOR_1'].translate_grade($result['GRADE_1'])."</td><td>".$result['NAME_1']."</td><td>".$result['MAJOR_2'].translate_grade($result['GRADE_2'])."</td><td>".$result['NAME_2']."</td><td>".translate_paystat($result['PAYSTAT'])."</td></tr>";
                                         }
                                     }
                                     ?>
@@ -149,14 +148,14 @@ $numXD = mysqli_num_rows($queryXD);
             <div class="col-sm-5 center">
                 <h3>查看繳費狀態</h3><br>
                 <h4>請輸入學生證號碼或項目及編號</h4>
-                <p>學生證號碼：<input type="text" id="id"> <button onclick="search1()">查詢</button></p>
+                <p>學生證號碼：<input type="text" id="id"><button onclick="search1()">查詢</button></p>
                 <p>項目：<select id="type">
                         <option value="MS">男單</option>
                         <option value="WS">女單</option>
                         <option value="MD">男雙</option>
                         <option value="WD">女雙</option>
                         <option value="XD">混雙</option></select>
-                編號：<input type="text" id="num"> <button onclick="search2()">查詢</button></p>
+                編號：<input type="text" id="num"><button onclick="search2()">查詢</button></p>
                 <h4>查詢結果</h4>
                 <div class="row">
                     <div class="col-sm-3 center">
