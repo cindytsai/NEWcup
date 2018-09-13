@@ -12,15 +12,15 @@ function translate_paystat($paystat) {
 }
 
 $queryMS = mysqli_query($mysql, "SELECT * FROM MS");
-$numMS = mysqli_num_rows($queryMS);
+$numMS = ($queryMS == false) ? 0 : mysqli_num_rows($queryMS);
 $queryWS = mysqli_query($mysql, "SELECT * FROM WS");
-$numWS = mysqli_num_rows($queryWS);
+$numWS = ($queryWS == false) ? 0 : mysqli_num_rows($queryWS);
 $queryMD = mysqli_query($mysql, "SELECT * FROM MD");
-$numMD = mysqli_num_rows($queryMD);
+$numMD = ($queryMD == false) ? 0 : mysqli_num_rows($queryMD);
 $queryWD = mysqli_query($mysql, "SELECT * FROM WD");
-$numWD = mysqli_num_rows($queryWD);
+$numWD = ($queryWD == false) ? 0 : mysqli_num_rows($queryWD);
 $queryXD = mysqli_query($mysql, "SELECT * FROM XD");
-$numXD = mysqli_num_rows($queryXD);
+$numXD = ($queryXD == false) ? 0 : mysqli_num_rows($queryXD);
 ?>
     <header>
         <div class="container">

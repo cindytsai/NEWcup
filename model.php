@@ -374,7 +374,10 @@ function check_id($type, $id) {
 }
 
 function check_birth($birthy, $birthm, $birthd) {
-    if (!checkdate($birthm, $birthd, $birthy) || date('Y') - $birthy < 15 || date('Y') - $birthy > 65) return '請輸入正確的出生日期！';
+    if (!preg_match('/^[0-9]{4}/', $birthy)) return '請輸入正確的出生日期！';
+    elseif (!preg_match('/^[1-12]{2}/', $birthm)) return '請輸入正確的出生日期！';
+    elseif (!preg_match('/^[1-31]{2}/', $birthd)) return '請輸入正確的出生日期！';
+    elseif (!checkdate($birthm, $birthd, $birthy) || date('Y') - $birthy < 15 || date('Y') - $birthy > 65) return '請輸入正確的出生日期！';
     else return 'ok';
 }
 
