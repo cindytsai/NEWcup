@@ -1,4 +1,7 @@
 <?php
+$mysql = mysqli_connect('localhost', 'root', '');
+mysqli_query($mysql, "SET NAMES 'utf8'");
+mysqli_select_db($mysql, 'NEWcup');
 $payMS = $_POST['MS'];
 $payWS = $_POST['WS'];
 $payMD = $_POST['MD'];

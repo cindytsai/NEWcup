@@ -1,9 +1,8 @@
 <?php
-$mysql = mysqli_connect('localhost', 'root', '');
-mysqli_query($mysql, "SET NAMES 'utf8'");
-mysqli_select_db($mysql, 'NEWcup');
-
-function querySignup($mysql) {
+function querySignup() {
+	$mysql = mysqli_connect('localhost', 'root', '');
+    mysqli_query($mysql, "SET NAMES 'utf8'");
+    mysqli_select_db($mysql, 'NEWcup');
 	$sql = mysqli_query($mysql, "SELECT SIGNUP FROM setup");
 	$fetch = mysqli_fetch_row($sql);
 	$return = ($fetch[0] == 1) ? 1 : 0;
@@ -16,7 +15,7 @@ function checkManager() {
 }
 if (isset($_GET['signup'])) {
 	if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
-		if (querySignup($mysql)) {
+		if (querySignup()) {
 			include_once("view/header.html");
 			include_once("view/".$_GET['signup'].".html");
 			include_once("view/footer.html");
@@ -119,21 +118,29 @@ elseif (isset($_POST['service'])) {
 	}
 }
 elseif (isset($_GET['service'])) {
+	$mysql = mysqli_connect('localhost', 'root', '');
+	mysqli_query($mysql, "SET NAMES 'utf8'");
+	mysqli_select_db($mysql, 'NEWcup');
 	if ($_GET['service'] == "clearList") {
 		if (checkManager()) {
-			$deleteMS = "DELETE FROM MS WHERE 1";
-			mysqli_query($mysql, $deleteMS);
-			$deleteWS = "DELETE FROM WS WHERE 1";
-			mysqli_query($mysql, $deleteWS);
-			$deleteMD = "DELETE FROM MD WHERE 1";
-			mysqli_query($mysql, $deleteMD);
-			$deleteWD = "DELETE FROM WD WHERE 1";
-			mysqli_query($mysql, $deleteWD);
-			$deleteXD = "DELETE FROM XD WHERE 1";
-			mysqli_query($mysql, $deleteXD);
-			$init = "UPDATE setup SET MS_NUM=1, WS_NUM=1, MD_NUM=1, WD_NUM=1, XD_NUM=1";
-			mysqli_query($mysql, $init);
-			alert("成功清空報名資料");
+			if (querySignup()) {
+				alert("報名功能開啟狀態無法清空報名資料");
+			}
+			else {
+				$deleteMS = "DELETE FROM MS WHERE 1";
+				mysqli_query($mysql, $deleteMS);
+				$deleteWS = "DELETE FROM WS WHERE 1";
+				mysqli_query($mysql, $deleteWS);
+				$deleteMD = "DELETE FROM MD WHERE 1";
+				mysqli_query($mysql, $deleteMD);
+				$deleteWD = "DELETE FROM WD WHERE 1";
+				mysqli_query($mysql, $deleteWD);
+				$deleteXD = "DELETE FROM XD WHERE 1";
+				mysqli_query($mysql, $deleteXD);
+				$init = "UPDATE setup SET MS_NUM=1, WS_NUM=1, MD_NUM=1, WD_NUM=1, XD_NUM=1";
+				mysqli_query($mysql, $init);
+				alert("成功清空報名資料");
+			}
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}
@@ -145,17 +152,22 @@ elseif (isset($_GET['service'])) {
 	}
 	elseif ($_GET['service'] == "checkList") {
 		if (checkManager()) {
-			$deleteMS = "DELETE FROM MS WHERE PAYSTAT=0";
-			mysqli_query($mysql, $deleteMS);
-			$deleteWS = "DELETE FROM WS WHERE PAYSTAT=0";
-			mysqli_query($mysql, $deleteWS);
-			$deleteMD = "DELETE FROM MD WHERE PAYSTAT=0";
-			mysqli_query($mysql, $deleteMD);
-			$deleteWD = "DELETE FROM WD WHERE PAYSTAT=0";
-			mysqli_query($mysql, $deleteWD);
-			$deleteXD = "DELETE FROM XD WHERE PAYSTAT=0";
-			mysqli_query($mysql, $deleteXD);
-			alert("成功確認比賽名單");
+			if (querySignup()) {
+				alert("報名功能開啟狀態無法確認比賽名單");
+			}
+			else {
+				$deleteMS = "DELETE FROM MS WHERE PAYSTAT=0";
+				mysqli_query($mysql, $deleteMS);
+				$deleteWS = "DELETE FROM WS WHERE PAYSTAT=0";
+				mysqli_query($mysql, $deleteWS);
+				$deleteMD = "DELETE FROM MD WHERE PAYSTAT=0";
+				mysqli_query($mysql, $deleteMD);
+				$deleteWD = "DELETE FROM WD WHERE PAYSTAT=0";
+				mysqli_query($mysql, $deleteWD);
+				$deleteXD = "DELETE FROM XD WHERE PAYSTAT=0";
+				mysqli_query($mysql, $deleteXD);
+				alert("成功確認比賽名單");
+			}
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}
@@ -200,7 +212,7 @@ elseif (isset($_GET['service'])) {
 			include_once("view/footer.html");
 		}
 		else {
-			echo "Unable to perform logout";
+			alert("Unable to perform logout");
 			include_once("view/header.html");
 			include_once("view/manager.html");
 		}

@@ -1,4 +1,7 @@
 <?php
+$mysql = mysqli_connect('localhost', 'root', '');
+mysqli_query($mysql, "SET NAMES 'utf8'");
+mysqli_select_db($mysql, 'NEWcup');
 function translate_grade($grade) {
     if ($grade == 'A') return '大一';
     elseif ($grade == 'B') return '大二';
