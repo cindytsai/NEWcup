@@ -4,10 +4,10 @@ include_once("resource/custom.php");
 
 $type = isset($_POST['type']) ? $_POST['type'] : $_GET['type'];
 if ($type == 'view') {
-	$content = '<table align="center"><tr><th>競賽管理者</th><th>競賽名稱</th><th>競賽種類</th><th>參與隊數</th><th>競賽建立時間</th><th>競賽最後更新時間</th></tr>';
+	$content = '<table align="center"><tr><th>競賽名稱</th><th>競賽種類</th><th>參與隊數</th><th>競賽建立時間</th><th>競賽最後更新時間</th></tr>';
 	$sql = mysqli_query($mysql, "SELECT * FROM GAMEMAIN ORDER BY UPDATEDATE DESC");
 	while ($fetch = mysqli_fetch_array($sql)) {
-		$content .= '<tr><td>'.$fetch['USERNO'].'</td><td>'.$fetch['GAMENM'].'</td><td>'.translatePlaytype($fetch['PLAYTYPE']).'</td><td>'.$fetch['AMOUNT'].'</td><td>'.$fetch['CREATEDATE'].'</td><td>'.$fetch['UPDATEDATE'].'</td><td><button onclick="location.assign(\'index.php?host='.$fetch['USERNO'].'&gameno='.$fetch['GAMENO'].'\')">查看</button></td></tr>';
+		$content .= '<tr><td>'.$fetch['GAMENM'].'</td><td>'.translatePlaytype($fetch['PLAYTYPE']).'</td><td>'.$fetch['AMOUNT'].'</td><td>'.$fetch['CREATEDATE'].'</td><td>'.$fetch['UPDATEDATE'].'</td><td><button onclick="location.assign(\'index.php?host='.$fetch['USERNO'].'&gameno='.$fetch['GAMENO'].'\')">查看</button></td></tr>';
 	}
 	$content .= '</table>';
 	echo json_encode(array('message' => 'Success', 'content' => $content));

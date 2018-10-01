@@ -139,6 +139,7 @@ else {
 		$content .= getTreeTable($i, 3, array(array_pop($up)), array(''));
 	}
 	$content .= '</table><button onclick="cyclePublic('.$amount.', \''.$gameno.'\', \''.$gamenm.'\', \''.$playtype.'\')">確定輸出</button>';
+	$content .= '<div id="cover"><div id="dialog">請稍候...</div></div>';
 	$end = '</body><script src="resource/'.$distribute['round'].'.js"></script></html>';
 	if (is_dir($account.'/'.$gameno)) {
 		if (is_file($account.'/'.$gameno."/cycleAssign.html")) {

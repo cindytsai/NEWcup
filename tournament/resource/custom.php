@@ -823,7 +823,7 @@ function cycleEditContent($account, $gameno) {
 	}
 	$content = cycleSetPlayNo($account, $gameno, $content, $distribute['round']);
 	$content = cycleSetScoreInput($account, $gameno, $content, $distribute['round']);
-	$content .= '</table><button onclick="update(\''.$gameno.'\')">確定更新</button><button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button>';
+	$content .= '</table><button onclick="update(\''.$gameno.'\')">確定更新</button><button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button><div id="cover"><div id="dialog">請稍候...</div></div>';
 	return $content;
 }
 

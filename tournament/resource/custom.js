@@ -440,6 +440,7 @@ function public(amount, gameno, gamenm, playtype) {
 }
 
 function cyclePublic(amount, gameno, gamenm, playtype) {
+	document.getElementById("cover").style.display = "block";
 	var request = new XMLHttpRequest();
 	request.open("POST", "cycleProduce.php");
 	if (playtype == 'A') {
@@ -497,6 +498,7 @@ function cyclePublic(amount, gameno, gamenm, playtype) {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
+			document.getElementById("cover").style.display = "none";
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno);
@@ -509,6 +511,7 @@ function cyclePublic(amount, gameno, gamenm, playtype) {
 }
 
 function update(gameno) {
+	document.getElementById("cover").style.display = "block";
 	var above = [];
 	above[0] = 'skip';
 	var below = [];
@@ -532,6 +535,7 @@ function update(gameno) {
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
+			document.getElementById("cover").style.display = "none";
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
 				alert("成功更新");
