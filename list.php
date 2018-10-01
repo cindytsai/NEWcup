@@ -39,7 +39,7 @@ $numXD = ($queryXD == false) ? 0 : mysqli_num_rows($queryXD);
                 <div class="panel-group" id="accordion">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h4 class="panel-title">男單 組數：<?php echo $numMS;?></h4></a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1"><h4 class="panel-title">男單 組數：<?php echo $numMS; ?></h4></a>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="panel-body">

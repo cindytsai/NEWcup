@@ -1,5 +1,6 @@
 <?php
-if ($_POST['service'] == "signup") {
+if (!isset($_POST['service'])) include_once("index.php");
+elseif ($_POST['service'] == "signup") {
     if (in_array($_POST['type'], array('MS', 'WS', 'MD', 'WD', 'XD'))) {
         echo json_encode(signup($_POST));
     }
