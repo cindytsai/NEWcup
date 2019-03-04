@@ -1,6 +1,6 @@
 <?php
 function querySignup() {
-	$mysql = mysqli_connect('localhost', 'root', '');
+	$mysql = mysqli_connect('localhost', 'NTUcup', '0986036999');
     mysqli_query($mysql, "SET NAMES 'utf8'");
     mysqli_select_db($mysql, 'NEWcup');
 	$sql = mysqli_query($mysql, "SELECT SIGNUP FROM setup");
@@ -118,7 +118,7 @@ elseif (isset($_POST['service'])) {
 	}
 }
 elseif (isset($_GET['service'])) {
-	$mysql = mysqli_connect('localhost', 'root', '');
+	$mysql = mysqli_connect('localhost', 'NTUcup', '0986036999');
 	mysqli_query($mysql, "SET NAMES 'utf8'");
 	mysqli_select_db($mysql, 'NEWcup');
 	if ($_GET['service'] == "clearList") {

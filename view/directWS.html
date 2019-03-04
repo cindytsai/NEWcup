@@ -44,7 +44,7 @@
 					   "&birthy=" + document.getElementsByName("birth")[0].value +
 					   "&birthm=" + document.getElementsByName("birth")[1].value +
 					   "&birthd=" + document.getElementsByName("birth")[2].value +
-					   "&identity_W=" + document.getElementById("identity").value;
+					   "&identity=" + document.getElementById("identity").value;
 			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 			request.send(data);
 
