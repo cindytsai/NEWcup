@@ -67,8 +67,8 @@
 	<script type="text/javascript">
 		function sign_up() {
 			var request = new XMLHttpRequest();
-			request.open("POST", "service.php");
-			var data = "new=MD&type=MD" + 
+			request.open("POST", "index.php");
+			var data = "service=signup&type=MD" + 
 					   "&id1=" + document.getElementById("id1").value +
 					   "&id2=" + document.getElementById("id2").value +
 					   "&name1=" + document.getElementById("name1").value +

@@ -512,6 +512,12 @@ function check_check($post) {
     else return '請確認您已詳讀並願意遵守報名須知！';
 }
 
+function addToList($type, $content) {
+    $file = fopen("resource/backup/".$type.".txt","a+");
+    fwrite($file, PHP_EOL.$content);
+    fclose($file);
+}
+
 function signup($post) {
     $mysql = mysqli_connect('localhost', 'NTUcup', '0986036999');
     mysqli_query($mysql, "SET NAMES 'utf8'");
@@ -545,6 +551,7 @@ function signup($post) {
             $insert_MS = "INSERT INTO MS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
             $update_MS_NUM = "UPDATE setup SET MS_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_MS) && mysqli_query($mysql, $update_MS_NUM)) {
+                addToList("MS", $NUM.", ".$ID.", ".$NAME.", ".$MAJOR.", ".$GRADE.", ".$PHONE.", ".$BIRTH.", ".$IDENTITY.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -561,6 +568,7 @@ function signup($post) {
             $insert_WS = "INSERT INTO WS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
             $update_WS_NUM = "UPDATE setup SET WS_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_WS) && mysqli_query($mysql, $update_WS_NUM)) {
+                addToList("WS", $NUM.", ".$ID.", ".$NAME.", ".$MAJOR.", ".$GRADE.", ".$PHONE.", ".$BIRTH.", ".$IDENTITY.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -614,6 +622,7 @@ function signup($post) {
             $insert_MD = "INSERT INTO MD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_MD_NUM = "UPDATE setup SET MD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_MD) && mysqli_query($mysql, $update_MD_NUM)) {
+                addToList("MD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -632,6 +641,7 @@ function signup($post) {
             $insert_WD = "INSERT INTO WD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_WD_NUM = "UPDATE setup SET WD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_WD) && mysqli_query($mysql, $update_WD_NUM)) {
+                addToList("WD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -650,6 +660,7 @@ function signup($post) {
             $insert_XD = "INSERT INTO XD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_XD_NUM = "UPDATE setup SET XD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_XD) && mysqli_query($mysql, $update_XD_NUM)) {
+                addToList("XD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -685,6 +696,7 @@ function signupDirect($post) {
             $insert_MS = "INSERT INTO MS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
             $update_MS_NUM = "UPDATE setup SET MS_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_MS) && mysqli_query($mysql, $update_MS_NUM)) {
+                addToList("MS", $NUM.", ".$ID.", ".$NAME.", ".$MAJOR.", ".$GRADE.", ".$PHONE.", ".$BIRTH.", ".$IDENTITY.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -699,6 +711,7 @@ function signupDirect($post) {
             $insert_WS = "INSERT INTO WS (NUM, ID, NAME, MAJOR, GRADE, PHONE, BIRTH, IDENTITY, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID', '$NAME', '$MAJOR', '$GRADE', '$PHONE', '$BIRTH', '$IDENTITY', '$SIGN_TIME', 0)";
             $update_WS_NUM = "UPDATE setup SET WS_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_WS) && mysqli_query($mysql, $update_WS_NUM)) {
+                addToList("WS", $NUM.", ".$ID.", ".$NAME.", ".$MAJOR.", ".$GRADE.", ".$PHONE.", ".$BIRTH.", ".$IDENTITY.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
@@ -731,7 +744,7 @@ function signupDirect($post) {
         $BIRTH2 = $BIRTHY2.'-'.$BIRTHM2.'-'.$BIRTHD2;
         date_default_timezone_set('Asia/Taipei');
         $SIGN_TIME = date("Y-m-d H:i:s");
-        if ($new == 'directMD'){
+        if ($post['type'] == 'directMD'){
             $queryMD_NUM = "SELECT MD_NUM FROM setup";
             $queryresult_MD_NUM = mysqli_query($mysql, $queryMD_NUM);
             $fetchresult_MD_NUM = mysqli_fetch_row($queryresult_MD_NUM);
@@ -739,13 +752,14 @@ function signupDirect($post) {
             $insert_MD = "INSERT INTO MD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_MD_NUM = "UPDATE setup SET MD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_MD) && mysqli_query($mysql, $update_MD_NUM)) {
+                addToList("MD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
                 return '資料庫異常，請重試！';
             }
         }
-        elseif ($new == 'directWD'){
+        elseif ($post['type'] == 'directWD'){
             $queryWD_NUM = "SELECT WD_NUM FROM setup";
             $queryresult_WD_NUM = mysqli_query($mysql, $queryWD_NUM);
             $fetchresult_WD_NUM = mysqli_fetch_row($queryresult_WD_NUM);
@@ -753,13 +767,14 @@ function signupDirect($post) {
             $insert_WD = "INSERT INTO WD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_WD_NUM = "UPDATE setup SET WD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_WD) && mysqli_query($mysql, $update_WD_NUM)) {
+                addToList("WD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
                 return '資料庫異常，請重試！';
             }
         }
-        elseif ($new == 'directXD'){
+        elseif ($post['type'] == 'directXD'){
             $queryXD_NUM = "SELECT XD_NUM FROM setup";
             $queryresult_XD_NUM = mysqli_query($mysql, $queryXD_NUM);
             $fetchresult_XD_NUM = mysqli_fetch_row($queryresult_XD_NUM);
@@ -767,6 +782,7 @@ function signupDirect($post) {
             $insert_XD = "INSERT INTO XD (NUM, ID_1, ID_2, NAME_1, NAME_2, MAJOR_1, MAJOR_2, GRADE_1, GRADE_2, PHONE_1, PHONE_2, BIRTH_1, BIRTH_2, IDENTITY_1, IDENTITY_2, SIGN_TIME, PAYSTAT) VALUES ('$NUM', '$ID1', '$ID2', '$NAME1', '$NAME2', '$MAJOR1', '$MAJOR2', '$GRADE1', '$GRADE2', '$PHONE1', '$PHONE2', '$BIRTH1', '$BIRTH2', '$IDENTITY1', '$IDENTITY2', '$SIGN_TIME', 0)";
             $update_XD_NUM = "UPDATE setup SET XD_NUM = $NUM+1";
             if (mysqli_query($mysql, $insert_XD) && mysqli_query($mysql, $update_XD_NUM)) {
+                addToList("XD", $NUM.", ".$ID1.", ".$ID2.", ".$NAME1.", ".$NAME2.", ".$MAJOR1.", ".$MAJOR2.", ".$GRADE1.", ".$GRADE2.", ".$PHONE1.", ".$PHONE2.", ".$BIRTH1.", ".$BIRTH2.", ".$IDENTITY1.", ".$IDENTITY2.", ".$SIGN_TIME);
                 return array('msg' => 'ok', 'num' => $NUM);
             }
             else {
