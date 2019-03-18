@@ -11,7 +11,7 @@ function querySignup() {
 
 function checkManager() {
 	if (isset($_COOKIE['account']) && $_COOKIE['account'] == "NTUcup") return true;
-	else return false;	
+	else return false;
 }
 if (isset($_GET['signup'])) {
 	if (in_array($_GET['signup'], array("MS", "WS", "MD", "WD", "XD"))) {
