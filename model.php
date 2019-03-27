@@ -308,7 +308,7 @@ function delete($type, $num) {
 }
 
 function check_id($type, $id) {
-    $id = strtoupper(fulltohalf($id));
+    $id = strtoupper(fulltohalf(trim($id)));
     if (!preg_match('/^[A-Z][0-9]{2}.[0-9]{5}$/', $id)){
         return '請輸入正確的學號！';
     }
@@ -383,13 +383,13 @@ function check_birth($birthy, $birthm, $birthd) {
 }
 
 function check_phone($phone) {
-    $phone = fulltohalf($phone);
+    $phone = fulltohalf(trim($phone));
     if (!preg_match('/^[0][9][0-9]{8}$/', $phone)) return '請輸入正確的聯絡電話！';
     else return 'ok';
 }
 
 function check_identityM($identity) {
-    $identity = strtoupper(fulltohalf($identity));
+    $identity = strtoupper(fulltohalf(trim($identity)));
     $len = strlen($identity);
     if (preg_match('/^[A-Z][1][0-9]+$/', $identity) && $len == 10) {
         $headPoint = array('A'=>1,'I'=>39,'O'=>48,'B'=>10,'C'=>19,'D'=>28,
@@ -441,7 +441,7 @@ function check_identityM($identity) {
 }
 
 function check_identityF($identity) {
-    $identity = strtoupper(fulltohalf($identity));
+    $identity = strtoupper(fulltohalf(trim($identity)));
     $len = strlen($identity);
     if (preg_match('/^[A-Z][2][0-9]+$/', $identity) && $len == 10) {
         $headPoint = array('A'=>1,'I'=>39,'O'=>48,'B'=>10,'C'=>19,'D'=>28,
@@ -523,14 +523,15 @@ function signup($post) {
     mysqli_query($mysql, "SET NAMES 'utf8'");
     mysqli_select_db($mysql, 'NEWcup');
     if (in_array($post['type'], array("MS", "WS"))) {
-        $ID = strtoupper($post['id']);
-        $NAME = $post['name'];
-        $MAJOR = $post['major'];
-        $GRADE = $post['grade'];
-        $PHONE = $post['phone'];
-        $BIRTHY = $post['birthy'];
-        $BIRTHM = $post['birthm'];
-        $BIRTHD = $post['birthd'];
+        $ID = strtoupper(trim($post['id']));
+        $NAME = trim($post['name']);
+        $MAJOR = trim($post['major']);
+        $GRADE = trim($post['grade']);
+        $PHONE = trim($post['phone']);
+        $BIRTHY = trim($post['birthy']);
+        $BIRTHM = trim($post['birthm']);
+        $BIRTHD = trim($post['birthd']);
+        $IDENTITY = strtoupper(trim($post['identity']));
         if (check_id($post['type'], $ID) != 'ok') return check_id($post['type'], $ID);
         if (check_name($NAME) != 'ok') return check_name($NAME);
         if (check_major($MAJOR) != 'ok') return check_major($MAJOR);
@@ -542,7 +543,6 @@ function signup($post) {
         date_default_timezone_set('Asia/Taipei');
         $SIGN_TIME = date("Y-m-d H:i:s");
         if ($post['type'] == 'MS'){
-            $IDENTITY = strtoupper($post['identity']);
             if (check_identityM($IDENTITY) != 'ok') return check_identityM($IDENTITY);
             $queryMS_NUM = "SELECT MS_NUM FROM setup";
             $queryresult_MS_NUM = mysqli_query($mysql, $queryMS_NUM);
@@ -559,7 +559,6 @@ function signup($post) {
             }
         }
         elseif ($post['type'] == 'WS'){
-            $IDENTITY = strtoupper($post['identity']);
             if (check_identityF($IDENTITY) != 'ok') return check_identityF($IDENTITY);
             $queryWS_NUM = "SELECT WS_NUM FROM setup";
             $queryresult_WS_NUM = mysqli_query($mysql, $queryWS_NUM);
@@ -577,22 +576,24 @@ function signup($post) {
         }
     }
     elseif (in_array($post['type'], array("MD", "WD", "XD"))) {
-        $ID1 = strtoupper($post['id1']);
-        $ID2 = strtoupper($post['id2']);
-        $NAME1 = $post['name1'];
-        $NAME2 = $post['name2'];
-        $MAJOR1 = $post['major1'];
-        $MAJOR2 = $post['major2'];
-        $GRADE1 = $post['grade1'];
-        $GRADE2 = $post['grade2'];
-        $PHONE1 = $post['phone1'];
-        $PHONE2 = $post['phone2'];
-        $BIRTHY1 = $post['birthy1'];
-        $BIRTHY2 = $post['birthy2'];
-        $BIRTHM1 = $post['birthm1'];
-        $BIRTHM2 = $post['birthm2'];
-        $BIRTHD1 = $post['birthd1'];
-        $BIRTHD2 = $post['birthd2'];
+        $ID1 = strtoupper(trim($post['id1']));
+        $ID2 = strtoupper(trim($post['id2']));
+        $NAME1 = trim($post['name1']);
+        $NAME2 = trim($post['name2']);
+        $MAJOR1 = trim($post['major1']);
+        $MAJOR2 = trim($post['major2']);
+        $GRADE1 = trim($post['grade1']);
+        $GRADE2 = trim($post['grade2']);
+        $PHONE1 = trim($post['phone1']);
+        $PHONE2 = trim($post['phone2']);
+        $BIRTHY1 = trim($post['birthy1']);
+        $BIRTHY2 = trim($post['birthy2']);
+        $BIRTHM1 = trim($post['birthm1']);
+        $BIRTHM2 = trim($post['birthm2']);
+        $BIRTHD1 = trim($post['birthd1']);
+        $BIRTHD2 = trim($post['birthd2']);
+        $IDENTITY1 = strtoupper(trim($post['identity1']));
+        $IDENTITY2 = strtoupper(trim($post['identity2']));
         if (check_id($post['type'], $ID1) != 'ok') return check_id($post['type'], $ID1);
         if (check_id($post['type'], $ID2) != 'ok') return check_id($post['type'], $ID2);
         if (check_name($NAME1) != 'ok') return check_name($NAME1);
@@ -611,8 +612,6 @@ function signup($post) {
         date_default_timezone_set('Asia/Taipei');
         $SIGN_TIME = date("Y-m-d H:i:s");
         if ($new == 'MD'){
-            $IDENTITY1 = strtoupper($post['identity1']);
-            $IDENTITY2 = strtoupper($post['identity2']);
             if (check_identityM($IDENTITY1) != 'ok') return check_identityM($IDENTITY1);
             if (check_identityM($IDENTITY2) != 'ok') return check_identityM($IDENTITY2);
             $queryMD_NUM = "SELECT MD_NUM FROM setup";
@@ -630,8 +629,6 @@ function signup($post) {
             }
         }
         elseif ($new == 'WD'){
-            $IDENTITY1 = strtoupper($post['identity1']);
-            $IDENTITY2 = strtoupper($post['identity2']);
             if (check_identityF($IDENTITY1) != 'ok') return check_identityF($IDENTITY1);
             if (check_identityF($IDENTITY2) != 'ok') return check_identityF($IDENTITY2);
             $queryWD_NUM = "SELECT WD_NUM FROM setup";
@@ -649,8 +646,6 @@ function signup($post) {
             }
         }
         elseif ($new == 'XD'){
-            $IDENTITY1 = strtoupper($post['identity1']);
-            $IDENTITY2 = strtoupper($post['identity2']);
             if (check_identityM($IDENTITY1) != 'ok') return check_identityM($IDENTITY1);
             if (check_identityF($IDENTITY2) != 'ok') return check_identityF($IDENTITY2);
             $queryXD_NUM = "SELECT XD_NUM FROM setup";
@@ -675,15 +670,15 @@ function signupDirect($post) {
     mysqli_query($mysql, "SET NAMES 'utf8'");
     mysqli_select_db($mysql, 'NEWcup');
     if (in_array($post['type'], array("directMS", "directWS"))) {
-        $ID = strtoupper($post['id']);
-        $NAME = $post['name'];
-        $MAJOR = $post['major'];
-        $GRADE = $post['grade'];
-        $PHONE = $post['phone'];
-        $BIRTHY = $post['birthy'];
-        $BIRTHM = $post['birthm'];
-        $BIRTHD = $post['birthd'];
-        $IDENTITY = strtoupper($post['identity']);
+        $ID = strtoupper(trim($post['id']));
+        $NAME = trim($post['name']);
+        $MAJOR = trim($post['major']);
+        $GRADE = trim($post['grade']);
+        $PHONE = trim($post['phone']);
+        $BIRTHY = trim($post['birthy']);
+        $BIRTHM = trim($post['birthm']);
+        $BIRTHD = trim($post['birthd']);
+        $IDENTITY = strtoupper(trim($post['identity']));
         if (check_id($post['type'], $ID) != 'ok') return check_id($post['type'], $ID);
         $BIRTH = $BIRTHY.'-'.$BIRTHM.'-'.$BIRTHD;
         date_default_timezone_set('Asia/Taipei');
@@ -720,24 +715,24 @@ function signupDirect($post) {
         }
     }
     elseif (in_array($post['type'], array("directMD", "directWD", "directXD"))) {
-        $ID1 = strtoupper($post['id1']);
-        $ID2 = strtoupper($post['id2']);
-        $NAME1 = $post['name1'];
-        $NAME2 = $post['name2'];
-        $MAJOR1 = $post['major1'];
-        $MAJOR2 = $post['major2'];
-        $GRADE1 = $post['grade1'];
-        $GRADE2 = $post['grade2'];
-        $PHONE1 = $post['phone1'];
-        $PHONE2 = $post['phone2'];
-        $BIRTHY1 = $post['birthy1'];
-        $BIRTHY2 = $post['birthy2'];
-        $BIRTHM1 = $post['birthm1'];
-        $BIRTHM2 = $post['birthm2'];
-        $BIRTHD1 = $post['birthd1'];
-        $BIRTHD2 = $post['birthd2'];
-        $IDENTITY1 = strtoupper($post['identity1']);
-        $IDENTITY2 = strtoupper($post['identity2']);
+        $ID1 = strtoupper(trim($post['id1']));
+        $ID2 = strtoupper(trim($post['id2']));
+        $NAME1 = trim($post['name1']);
+        $NAME2 = trim($post['name2']);
+        $MAJOR1 = trim($post['major1']);
+        $MAJOR2 = trim($post['major2']);
+        $GRADE1 = trim($post['grade1']);
+        $GRADE2 = trim($post['grade2']);
+        $PHONE1 = trim($post['phone1']);
+        $PHONE2 = trim($post['phone2']);
+        $BIRTHY1 = trim($post['birthy1']);
+        $BIRTHY2 = trim($post['birthy2']);
+        $BIRTHM1 = trim($post['birthm1']);
+        $BIRTHM2 = trim($post['birthm2']);
+        $BIRTHD1 = trim($post['birthd1']);
+        $BIRTHD2 = trim($post['birthd2']);
+        $IDENTITY1 = strtoupper(trim($post['identity1']));
+        $IDENTITY2 = strtoupper(trim($post['identity2']));
         if (check_id($post['type'], $ID1) != 'ok') return check_id($post['type'], $ID1);
         if (check_id($post['type'], $ID2) != 'ok') return check_id($post['type'], $ID2);
         $BIRTH1 = $BIRTHY1.'-'.$BIRTHM1.'-'.$BIRTHD1;

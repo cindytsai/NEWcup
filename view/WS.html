@@ -26,7 +26,7 @@
 						<input class="smallest_box" type="text" name="birth"> 月
 						<input class="smallest_box" type="text" name="birth" onchange="check_birth('WS', 'birth')"> 日</p>
 					<p class="text-danger" id="birth_result"></p>
-					<p>身分證字號：<input type="text" id="identity" onchange="check_identityF('WS', 'identity')"></p>
+					<p>身分證字號：<input type="text" id="identity" onchange="check_identityF('WS', 'identity')"> <a onclick="alert('請填入居留證號或入台證號即可')">沒有身分證</a></p>
 					<p class="text-danger" id="identity_result"></p>
 					<p><input type="checkbox" id="check" value="Y"> 報名確認</p>
 					<button onclick="sign_up()">確定報名</button>
