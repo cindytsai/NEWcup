@@ -46,6 +46,8 @@ elseif (isset($_GET['host']) && isset($_GET['gameno'])) {
 	$fetch = mysqli_fetch_array($sql);
 	if (isset($_COOKIE['account']) && isset($_COOKIE['token']) && $_COOKIE['account'] == $host && $_COOKIE['token'] == $fetch['TOKEN']) {
 		if (isset($_GET['type']) && $_GET['type'] == 'assign') {
+			$account = $_COOKIE['account'];
+			mysqli_query($mysql, "UPDATE USERMAS SET OCCUPY=1 WHERE USERNO='$account'");
 			$content = file_get_contents($host."/".$gameno."/assign.html");
 			echo $content;
 		}
@@ -71,6 +73,12 @@ elseif (isset($_GET['host']) && isset($_GET['gameno'])) {
 }
 
 elseif (isset($_COOKIE['account']) && isset($_COOKIE['token'])) {
+	$account = $_COOKIE['account'];
+	$sql = mysqli_query($mysql, "SELECT * FROM USERMAS WHERE USERNO='$account'");
+	$fetch = mysqli_fetch_array($sql);
+	if ($fetch['OCCUPY'] == 1) {
+		echo "<script>alert('賽程製作中，請勿新增賽程，以免資料衝突');</script>";
+	}
 	$content = file_get_contents("resource/index_member.html");
 	$content = str_replace('[memberArea]', $_COOKIE['account'], $content);
 	echo $content;

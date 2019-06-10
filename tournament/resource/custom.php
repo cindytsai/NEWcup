@@ -1689,6 +1689,9 @@ function login($account, $password) {
 	elseif ($password != $fetch1['PASSWORD']) {
 		return '密碼錯誤';
 	}
+	elseif ($fetch1['OCCUPY'] == 1) {
+		return '賽程製作中，暫時無法進入';
+	}
 	else {
 		$token = get_token();
 		$sql2 = "UPDATE USERMAS SET TOKEN='$token' WHERE USERNO='$account'";
