@@ -611,7 +611,7 @@ function signup($post) {
         $BIRTH2 = $BIRTHY2.'-'.$BIRTHM2.'-'.$BIRTHD2;
         date_default_timezone_set('Asia/Taipei');
         $SIGN_TIME = date("Y-m-d H:i:s");
-        if ($new == 'MD'){
+        if ($post['type'] == 'MD'){
             if (check_identityM($IDENTITY1) != 'ok') return check_identityM($IDENTITY1);
             if (check_identityM($IDENTITY2) != 'ok') return check_identityM($IDENTITY2);
             $queryMD_NUM = "SELECT MD_NUM FROM setup";
@@ -628,7 +628,7 @@ function signup($post) {
                 return "資料庫異常，請重試！";
             }
         }
-        elseif ($new == 'WD'){
+        elseif ($post['type'] == 'WD'){
             if (check_identityF($IDENTITY1) != 'ok') return check_identityF($IDENTITY1);
             if (check_identityF($IDENTITY2) != 'ok') return check_identityF($IDENTITY2);
             $queryWD_NUM = "SELECT WD_NUM FROM setup";
@@ -645,7 +645,7 @@ function signup($post) {
                 return "資料庫異常，請重試！";
             }
         }
-        elseif ($new == 'XD'){
+        elseif ($post['type'] == 'XD'){
             if (check_identityM($IDENTITY1) != 'ok') return check_identityM($IDENTITY1);
             if (check_identityF($IDENTITY2) != 'ok') return check_identityF($IDENTITY2);
             $queryXD_NUM = "SELECT XD_NUM FROM setup";
@@ -679,7 +679,6 @@ function signupDirect($post) {
         $BIRTHM = trim($post['birthm']);
         $BIRTHD = trim($post['birthd']);
         $IDENTITY = strtoupper(trim($post['identity']));
-        if (check_id($post['type'], $ID) != 'ok') return check_id($post['type'], $ID);
         $BIRTH = $BIRTHY.'-'.$BIRTHM.'-'.$BIRTHD;
         date_default_timezone_set('Asia/Taipei');
         $SIGN_TIME = date("Y-m-d H:i:s");
@@ -733,8 +732,6 @@ function signupDirect($post) {
         $BIRTHD2 = trim($post['birthd2']);
         $IDENTITY1 = strtoupper(trim($post['identity1']));
         $IDENTITY2 = strtoupper(trim($post['identity2']));
-        if (check_id($post['type'], $ID1) != 'ok') return check_id($post['type'], $ID1);
-        if (check_id($post['type'], $ID2) != 'ok') return check_id($post['type'], $ID2);
         $BIRTH1 = $BIRTHY1.'-'.$BIRTHM1.'-'.$BIRTHD1;
         $BIRTH2 = $BIRTHY2.'-'.$BIRTHM2.'-'.$BIRTHD2;
         date_default_timezone_set('Asia/Taipei');
