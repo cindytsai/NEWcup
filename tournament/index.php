@@ -34,6 +34,16 @@ if (isset($_POST['event'])) {
 		}
 		echo json_encode(array('message' => $return));
 	}
+	elseif ($_POST['event'] == 'swap') {
+		$host = $_COOKIE['account'];
+		$gameno = $_POST['gameno'];
+		$num1 = $_POST['num1'];
+		$num2 = $_POST['num2'];
+		$sql1 = mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION=999 WHERE USERNO='$host' AND GAMENO='$gameno' AND POSITION='$num1'");
+		$sql2 = mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION='$num1' WHERE USERNO='$host' AND GAMENO='$gameno' AND POSITION='$num2'");
+		$sql3 = mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION='$num2' WHERE USERNO='$host' AND GAMENO='$gameno' AND POSITION=999");
+		echo json_encode(array('message' => 'Success'));
+	}
 	else {
 		echo 'Invalid event called';
 	}

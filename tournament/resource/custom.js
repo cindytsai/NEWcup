@@ -60,6 +60,29 @@ function logout() {
 	}
 }
 
+function swap() {
+	var request = new XMLHttpRequest();
+	request.open("POST", "index.php");
+	var gameno = document.getElementById("swapGameno").value;
+	var num1 = document.getElementById("number1").value;
+	var num2 = document.getElementById("number2").value;
+	var data = "event=swap&gameno=" + gameno + "&num1=" + num1 + "&num2=" + num2;
+	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	request.send(data);
+	request.onreadystatechange = function() {
+		if (request.readyState === 4 && request.status === 200) {
+			var data = JSON.parse(request.responseText);
+			if (data.message == 'Success') {
+				alert("成功調動，請至該項目賽程頁面點擊更新賽程已完成更新。");
+				location.reload();
+			}
+			else {
+				alert(data.message);
+			}
+		}
+	}
+}
+
 function enter() {
 	var amount = Number(document.getElementById("amount").value);
 	var gameno = document.getElementById("gameno").value;
