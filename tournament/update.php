@@ -4,6 +4,13 @@ include_once("resource/custom.php");
 
 $account = $_COOKIE['account'];
 $gameno = $_POST['gameno'];
+if (isset($_POST['swap']) && $_POST['swap'] == 'true') {
+	$num1 = $_POST['num1'];
+	$num2 = $_POST['num2'];
+	mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION='999' WHERE USERNO='$account' AND GAMENO='$gameno' AND POSITION='$num1'");
+	mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION='$num1' WHERE USERNO='$account' AND GAMENO='$gameno' AND POSITION='$num2'");
+	mysqli_query($mysql, "UPDATE GAMEPOSITION SET POSITION='$num2' WHERE USERNO='$account' AND GAMENO='$gameno' AND POSITION='999'");
+}
 $above = explode(',', $_POST['above']);
 $below = explode(',', $_POST['below']);
 

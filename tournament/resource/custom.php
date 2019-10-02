@@ -40,10 +40,10 @@ function getTreeTable($row, $type, $first, $second) {
 function makePublic($account, $gameno) {
 	$type = getGametype($account, $gameno);
 	$start = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>電子化賽程系統</title><link rel="stylesheet" type="text/css" href="resource/tournament.css"><link rel="stylesheet" type="text/css" href="resource/custom.css"></head><body>';
-	$content = ($type == 'A') ? publicContent($account, $gameno) : cyclePublicContent($account, $gameno);
+	$content = cyclePublicContent($account, $gameno);
 	$amount = getAmount($account, $gameno);
 	$distribute = distribute($amount);
-	$roundAmount = ($type == 'A') ? pow(2, ceil(log($amount, 2))) : $distribute['round'];
+	$roundAmount = $distribute['round'];
 	$end = '</body><script src="resource/'.$roundAmount.'.js"></script></html>';
 	$file = fopen($account.'/'.$gameno."/public.html", "w");
 	fwrite($file, $start.$content.$end);
@@ -53,61 +53,14 @@ function makePublic($account, $gameno) {
 function makeEdit($account, $gameno) {
 	$type = getGametype($account, $gameno);
 	$start = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>電子化賽程系統</title><link rel="stylesheet" type="text/css" href="resource/tournament.css"><link rel="stylesheet" type="text/css" href="resource/custom.css"></head><body>';
-	$content = ($type == 'A') ? editContent($account, $gameno) : cycleEditContent($account, $gameno);
+	$content = cycleEditContent($account, $gameno);
 	$amount = getAmount($account, $gameno);
 	$distribute = distribute($amount);
-	$roundAmount = ($type == 'A') ? pow(2, ceil(log($amount, 2))) : $distribute['round'];
+	$roundAmount = $distribute['round'];
 	$end = '</body><script src="resource/'.$roundAmount.'.js"></script></html>';
 	$file = fopen($account.'/'.$gameno . "/edit.html", "w");
 	fwrite($file, $start.$content.$end);
 	fclose($file);
-}
-
-function publicContent($account, $gameno) {
-	$amount = getAmount($account, $gameno);
-	$playtype = getPlaytype($account, $gameno);
-	$content = '<table><tr><td>單位</td><td>名稱</td></tr>';
-	for ($i = 1; $i <= pow(2, ceil(log($amount, 2))); $i++) {
-		if ($playtype == 'A') {
-			$query = queryContentSingle($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processUnit($query['unit']), processName($query['name'])), array('', ''));
-		}
-		elseif ($playtype == 'B') {
-			$query = queryContentDouble($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processUnit($query['unitu']), processName($query['nameu'])), array(processUnit($query['unitd']), processName($query['named'])));
-		}
-		elseif ($playtype == 'C') {
-			$query = queryContentGroup($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processName($query), ''), array('', ''));
-		}
-	}
-	$content = setPlayNo($account, $gameno, $content, $amount);
-	$content .= '</table><button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button>';
-	return $content;
-}
-
-function editContent($account, $gameno) {
-	$amount = getAmount($account, $gameno);
-	$playtype = getPlaytype($account, $gameno);
-	$content = '<script src="resource/custom.js"></script><table><tr><td>單位</td><td>名稱</td></tr>';
-	for ($i = 1; $i <= pow(2, ceil(log($amount, 2))); $i++) {
-		if ($playtype == 'A') {
-			$query = queryContentSingle($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processUnit($query['unit']), processName($query['name'])), array('', ''));
-		}
-		elseif ($playtype == 'B') {
-			$query = queryContentDouble($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processUnit($query['unitu']), processName($query['nameu'])), array(processUnit($query['unitd']), processName($query['named'])));
-		}
-		elseif ($playtype == 'C') {
-			$query = queryContentGroup($account, $gameno, $i);
-			$content .= getTreeTable($i, 2, array(processName($query), ''), array('', ''));
-		}
-	}
-	$content = setPlayNo($account, $gameno, $content, $amount);
-	$content = setScoreInput($account, $gameno, $content, $amount);
-	$content .= '</table><button onclick="update(\''.$gameno.'\')">確定更新</button><button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button>';
-	return $content;
 }
 
 function cyclePublicContent($account, $gameno) {
@@ -823,7 +776,12 @@ function cycleEditContent($account, $gameno) {
 	}
 	$content = cycleSetPlayNo($account, $gameno, $content, $distribute['round']);
 	$content = cycleSetScoreInput($account, $gameno, $content, $distribute['round']);
-	$content .= '</table><button onclick="update(\''.$gameno.'\')">確定更新</button><button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button><div id="cover"><div id="dialog">請稍候...</div></div>';
+	$content .= '</table>
+	<div>調動競賽人員位置：將位置代號為<input type="text" id="swapnum1">與<input type="text" id="swapnum2">之選手對調。
+	<button onclick="swap(\''.$gameno.'\')">執行調動</button></div>
+	<button onclick="update(\''.$gameno.'\')">確定更新</button>
+	<button onclick="window.open(\'index.php?host='.$account.'&gameno='.$gameno.'&type=game\')">賽程時間表</button>
+	<div id="cover"><div id="dialog">請稍候...</div></div>';
 	return $content;
 }
 

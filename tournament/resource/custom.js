@@ -60,20 +60,37 @@ function logout() {
 	}
 }
 
-function swap() {
+function swap(gameno) {
+	document.getElementById("cover").style.display = "block";
+	var above = [];
+	above[0] = 'skip';
+	var below = [];
+	below[0] = 'skip';
+	var again = true;
+	for (i = 1; again; i++) {
+		var a = document.getElementById(i+"_above");
+		var b = document.getElementById(i+"_below");
+		if (a != null && b != null) {
+			above[i] = a.value;
+			below[i] = b.value;
+		}
+		else {
+			again = false;
+		}
+	}
+	var num1 = document.getElementById("swapnum1").value;
+	var num2 = document.getElementById("swapnum2").value;
 	var request = new XMLHttpRequest();
-	request.open("POST", "index.php");
-	var gameno = document.getElementById("swapGameno").value;
-	var num1 = document.getElementById("number1").value;
-	var num2 = document.getElementById("number2").value;
-	var data = "event=swap&gameno=" + gameno + "&num1=" + num1 + "&num2=" + num2;
+	request.open("POST", "update.php");
+	var data = "swap=true&gameno=" + gameno + "&num1=" + num1 + "&num2=" + num2 + "&above=" + above + "&below=" + below;
 	request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	request.send(data);
 	request.onreadystatechange = function() {
 		if (request.readyState === 4 && request.status === 200) {
+			document.getElementById("cover").style.display = "none";
 			var data = JSON.parse(request.responseText);
 			if (data.message == 'Success') {
-				alert("成功調動，請至該項目賽程頁面點擊更新賽程已完成更新。");
+				alert("成功更新");
 				location.reload();
 			}
 			else {
@@ -88,8 +105,6 @@ function enter() {
 	var gameno = document.getElementById("gameno").value;
 	var gamenm = document.getElementById("gamenm").value;
 	var people = document.getElementById("people");
-	var method = document.getElementById("method");
-	var type = document.getElementById("type");
 	if (people[0].checked) {
 		var playtype = 'A';
 	}
@@ -110,108 +125,26 @@ function enter() {
 		alert("請輸入競賽名稱");
 	}
 	else {
-		if (method[0].checked) {
-			if (amount == NaN || amount > 128 || amount < 4) {
-				alert("請輸入介於 4 ~ 128 之正整數參賽人數");
-			}
-			else if (type[0].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "directAssign.php");
-				var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else if (type[1].checked) {
-				var content = '';
-				if (playtype == 'A') {
-					content += '<table><tr><th>序號</th><th>單位</th><th>名稱</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + '"></td><td><input type="text" id="name' + i + '"></td></tr>';
-					}
-				}
-				else if (playtype == 'B') {
-					content += '<table><tr><th>序號</th><th>單位</th><th>名稱</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + 'u"><br><input type="text" id="unit' + i + 'd"></td><td><input type="text" id="name' + i + 'u"><br><input type="text" id="name' + i + 'd"></td></tr>';
-					}
-				}
-				else if (playtype == 'C') {
-					content += '<table><tr><th>序號</th><th>單位</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + '"></td></tr>';
-					}
-				}
-				content += '</table><button onclick="send()">確定送出</button>';
-				document.getElementById("players").innerHTML = content;
-				document.getElementById("players").style.display = null;
-			}
-			else {
-				alert("請選擇賽程排列方式");
-			}
-		}
-		else if (method[1].checked) {
-			if (amount == NaN || amount > 512 || amount < 12) {
-				alert("請輸入介於 12 ~ 512 之正整數參賽人數");
-			}
-			else if (type[0].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "cycleAssign.php");
-				var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else if (type[1].checked) {
-				var content = '';
-				if (playtype == 'A') {
-					content += '<table><tr><th>序號</th><th>單位</th><th>名稱</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + '"></td><td><input type="text" id="name' + i + '"></td></tr>';
-					}
-				}
-				else if (playtype == 'B') {
-					content += '<table><tr><th>序號</th><th>單位</th><th>名稱</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + 'u"><br><input type="text" id="unit' + i + 'd"></td><td><input type="text" id="name' + i + 'u"><br><input type="text" id="name' + i + 'd"></td></tr>';
-					}
-				}
-				else if (playtype == 'C') {
-					content += '<table><tr><th>序號</th><th>單位</th></tr>';
-					for (i = 1; i <= amount; i++) {
-						content += '<tr><td>'+i+'</td><td><input type="text" id="unit' + i + '"></td></tr>';
-					}
-				}
-				content += '</table><button onclick="send()">確定送出</button>';
-				document.getElementById("players").innerHTML = content;
-				document.getElementById("players").style.display = null;
-			}
-			else {
-				alert("請選擇賽程排列方式");
-			}
+		if (amount == NaN || amount > 512 || amount < 12) {
+			alert("請輸入介於 12 ~ 512 之正整數參賽人數");
 		}
 		else {
-			alert("請選擇競賽方式");
+			var request = new XMLHttpRequest();
+			request.open("POST", "cycleAssign.php");
+			var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send(data);
+			request.onreadystatechange = function() {
+				if (request.readyState === 4 && request.status === 200) {
+					var data = JSON.parse(request.responseText);
+					if (data.message == 'Success') {
+						location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
+					}
+					else {
+						alert(data.message);
+					}
+				}
+			}
 		}
 	}
 }
@@ -221,8 +154,6 @@ function send() {
 	var gameno = document.getElementById("gameno").value;
 	var gamenm = document.getElementById("gamenm").value;
 	var people = document.getElementById("people");
-	var method = document.getElementById("method");
-	var type = document.getElementById("type");
 	if (people[0].checked) {
 		var playtype = 'A';
 	}
@@ -243,152 +174,26 @@ function send() {
 		alert("請輸入競賽名稱");
 	}
 	else {
-		if (method[0].checked) {
-			if (amount == NaN || amount > 128 || amount < 4) {
-				alert("請輸入介於 4 ~ 128 之正整數參賽人數");
-			}
-			else if (type[0].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "directAssign.php");
-				var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else if (type[1].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "directProduce.php");
-				if (playtype == 'A') {
-					var unit = [];
-					var name = [];
-					for (i = 1; i <= amount; i++) {
-						unit.push(document.getElementById("unit" + i).value);
-						name.push(document.getElementById("name" + i).value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unit=" + unit + "&name=" + name;
-				}
-				else if (playtype == 'B') {
-					var unitu = [];
-					var unitd = [];
-					var nameu = [];
-					var named = [];
-					for (i = 1; i <= amount; i++) {
-						unitu.push(document.getElementById("unit" + i + "u").value);
-						unitd.push(document.getElementById("unit" + i + "d").value);
-						nameu.push(document.getElementById("name" + i + "u").value);
-						named.push(document.getElementById("name" + i + "d").value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unitu=" + unitu + "&unitd=" + unitd + "&nameu=" + nameu + "&named=" + named;
-				}
-				else if (playtype == 'C') {
-					var unit = [];
-					for (i = 1; i <= amount; i++) {
-						unit.push(document.getElementById("unit" + i).value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unit=" + unit;
-				}
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else {
-				alert("請選擇賽程排列方式");
-			}
-		}
-		else if (method[1].checked) {
-			if (amount == NaN || amount > 512 || amount < 12) {
-				alert("請輸入介於 12 ~ 512 之正整數參賽人數");
-			}
-			else if (type[0].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "cycleAssign.php");
-				var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else if (type[1].checked) {
-				var request = new XMLHttpRequest();
-				request.open("POST", "cycleProduce.php");
-				if (playtype == 'A') {
-					var unit = [];
-					var name = [];
-					for (i = 1; i <= amount; i++) {
-						unit.push(document.getElementById("unit" + i).value);
-						name.push(document.getElementById("name" + i).value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unit=" + unit + "&name=" + name;
-				}
-				else if (playtype == 'B') {
-					var unitu = [];
-					var unitd = [];
-					var nameu = [];
-					var named = [];
-					for (i = 1; i <= amount; i++) {
-						unitu.push(document.getElementById("unit" + i + "u").value);
-						unitd.push(document.getElementById("unit" + i + "d").value);
-						nameu.push(document.getElementById("name" + i + "u").value);
-						named.push(document.getElementById("name" + i + "d").value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unitu=" + unitu + "&unitd=" + unitd + "&nameu=" + nameu + "&named=" + named;
-				}
-				else if (playtype == 'C') {
-					var unit = [];
-					for (i = 1; i <= amount; i++) {
-						unit.push(document.getElementById("unit" + i).value);
-					}
-					var data = "mode=auto&gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype + "&unit=" + unit;
-				}
-				request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				request.send(data);
-				request.onreadystatechange = function() {
-					if (request.readyState === 4 && request.status === 200) {
-						var data = JSON.parse(request.responseText);
-						if (data.message == 'Success') {
-							location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno);
-						}
-						else {
-							alert(data.message);
-						}
-					}
-				}
-			}
-			else {
-				alert("請選擇賽程排列方式");
-			}
+		if (amount == NaN || amount > 512 || amount < 12) {
+			alert("請輸入介於 12 ~ 512 之正整數參賽人數");
 		}
 		else {
-			alert("請選擇競賽方式");
+			var request = new XMLHttpRequest();
+			request.open("POST", "cycleAssign.php");
+			var data = "gameno=" + gameno + "&gamenm=" + gamenm + "&amount=" + amount + "&playtype=" + playtype;
+			request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			request.send(data);
+			request.onreadystatechange = function() {
+				if (request.readyState === 4 && request.status === 200) {
+					var data = JSON.parse(request.responseText);
+					if (data.message == 'Success') {
+						location.assign("index.php?host=" + data.host + "&gameno=" + data.gameno + "&type=" + data.type);
+					}
+					else {
+						alert(data.message);
+					}
+				}
+			}
 		}
 	}
 }
