@@ -24,7 +24,28 @@ function output($account, $gameno) {
 
 	$count = 0;
 	$sql = mysqli_query($mysql, "SELECT * FROM GAMESTATE WHERE USERNO='$account' AND GAMENO='$gameno' AND PLAYNO!='NULL'");
-	while ($fetch = mysqli_fetch_array($sql)) {
+	$num_row = mysqli_num_rows($sql);
+	$modulo  = $num_row % 3;
+	$stride  = ceil($num_row / 3); 
+
+	while ($count < $num_row) {
+		// Calculate the row num
+		$get_row = floor($count / 3) + 1;
+		if($count % 3 == 1){
+			$get_row = $get_row + $stride;
+		}
+		if($count % 3 == 2){
+			if($modulo == 1){
+				$get_row = $get_row + (2 * $stride - 1);
+			}
+			else{
+				$get_row = $get_row + 2 * $stride;
+			}
+		}
+		// Get the row $get_row
+		$sql = mysqli_query($mysql, "SELECT * FROM GAMESTATE WHERE USERNO='$account' AND GAMENO='$gameno' AND PLAYNO!='NULL' AND PLAYNO='$get_row'");
+		$fetch = mysqli_fetch_array($sql);
+		
 		if ($count % 3 == 0) {
 			$pdf->AddPage();
 		}
