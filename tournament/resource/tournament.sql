@@ -47,7 +47,7 @@ CREATE TABLE `GAMEPOSITION` (
   `USERNO` varchar(15) COLLATE utf8_bin NOT NULL,
   `GAMENO` varchar(15) COLLATE utf8_bin NOT NULL,
   `POSITION` int(11) NOT NULL,
-  `PLAYERNO` varchar(1) COLLATE utf8_bin DEFAULT NULL,
+  `PLAYERNO` varchar(1) COLLATE utf8_bin DEFAULT '1',
   `UNIT` varchar(30) COLLATE utf8_bin NOT NULL,
   `NAME` varchar(30) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
