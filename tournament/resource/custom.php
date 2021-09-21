@@ -1801,7 +1801,8 @@ function updateCycleGameState($account, $gameno) {
 		$playno = 3*$gap + $i/2;
 		$above = array_pop($up);
 		$below = array_pop($up);
-		mysqli_query($mysql, "UPDATE GAMESTATE SET ABOVE='$above', BELOW='$below' WHERE USERNO='$account' AND GAMENO='$gameno' AND SYSTEMPLAYNO='$playno'");
+		mysqli_query($mysql, "UPDATE GAMESTATE SET ABOVE='$above' WHERE USERNO='$account' AND GAMENO='$gameno' AND SYSTEMPLAYNO='$playno'");
+		mysqli_query($mysql, "UPDATE GAMESTATE SET BELOW='$below' WHERE USERNO='$account' AND GAMENO='$gameno' AND SYSTEMPLAYNO='$playno'");
 	}
 	$roundAmount = 3*$gap + $distribute['round'];
 	$start = 3*$gap + 1;
